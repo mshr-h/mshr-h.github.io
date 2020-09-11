@@ -1,0 +1,44 @@
+# Windows/LinuxでプロセスIDをC/Pythonから取得する
+
+
+Windows/LinuxでプロセスIDをC/Pythonから取得する方法。
+
+## Windows/C
+
+[`GetCurrentProcessId()`](https://docs.microsoft.com/ja-jp/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocessid)を使う。
+
+```c
+#include <stdio.h>
+#include <windows.h>
+
+int main(void) {
+  printf("Process ID = %d\n", GetCurrentProcessId());
+  return 0;
+}
+```
+
+## Linux/C
+
+[`getpid()`](https://linuxjm.osdn.jp/html/LDP_man-pages/man2/getpid.2.html)を使う。
+
+```c
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main(void) {
+  printf("Process ID = %d\n", getpid());
+  return 0;
+}
+```
+
+## Python
+
+[`os.getpid()`](https://docs.python.org/ja/3/library/os.html#os.getpid)を使う。
+
+```python
+import os
+
+print("Process ID = ", os.getpid())
+```
+

@@ -1,0 +1,212 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>Hugo+Github Pagesで新しい個人ウェブサイトを作った - Keep Coding, Keep Climbing</title><meta name=Description content="programming and rock climbing"><meta property="og:title" content="Hugo+Github Pagesで新しい個人ウェブサイトを作った"><meta property="og:description" content="HugoとGithub Pagesで個人ブログを作ったので作業メモ。 macOS Catalina 10.15.4で作業した。 手順 GitHub repositoryを作成 Hugoでサ"><meta property="og:type" content="article"><meta property="og:url" content="https://keepcodingkeepclimbing.com/posts/new-website-with-hugo/"><meta property="og:image" content="https://keepcodingkeepclimbing.com/img/avatar.jpg"><meta property="article:published_time" content="2020-05-02T00:00:00+00:00"><meta property="article:modified_time" content="2020-05-02T00:00:00+00:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://keepcodingkeepclimbing.com/img/avatar.jpg"><meta name=twitter:title content="Hugo+Github Pagesで新しい個人ウェブサイトを作った"><meta name=twitter:description content="HugoとGithub Pagesで個人ブログを作ったので作業メモ。 macOS Catalina 10.15.4で作業した。 手順 GitHub repositoryを作成 Hugoでサ"><meta name=application-name content="Keep Coding, Keep Climbing"><meta name=apple-mobile-web-app-title content="Keep Coding, Keep Climbing"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://keepcodingkeepclimbing.com/posts/new-website-with-hugo/><link rel=prev href=https://keepcodingkeepclimbing.com/posts/macos-tips/><link rel=next href=https://keepcodingkeepclimbing.com/posts/dns-record/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Hugo+Github Pagesで新しい個人ウェブサイトを作った","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/keepcodingkeepclimbing.com\/posts\/new-website-with-hugo\/"},"genre":"posts","keywords":"Hugo","wordcount":1773,"url":"https:\/\/keepcodingkeepclimbing.com\/posts\/new-website-with-hugo\/","datePublished":"2020-05-02T00:00:00+00:00","dateModified":"2020-05-02T00:00:00+00:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Masahiro Hiramori"},"author":{"@type":"Person","name":"     \"Masahiro Hiramori\""},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':('auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark'))&&document.body.setAttribute('theme','dark');</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing">Keep Coding, Keep Climbing</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/tags/>Tags </a><a class=menu-item href=/categories/>Categories </a><a class=menu-item href=/cv>CV </a><a class=menu-item href=/about>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing">Keep Coding, Keep Climbing</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/posts/>Posts</a><a class=menu-item href=/tags/>Tags</a><a class=menu-item href=/categories/>Categories</a><a class=menu-item href=/cv>CV</a><a class=menu-item href=/about>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Hugo+Github Pagesで新しい個人ウェブサイトを作った</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>    "Masahiro Hiramori"</a></span>&nbsp;<span class=post-category>included in <a href=/categories/tech/><i class="far fa-folder fa-fw"></i>Tech</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2020-05-02>2020-05-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1773 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#github-repositoryを作成>GitHub repositoryを作成</a></li><li><a href=#hugoでサイト作成>Hugoでサイト作成</a></li><li><a href=#github-pagesで公開>GitHub Pagesで公開</a></li><li><a href=#独自ドメイン設定>独自ドメイン設定</a></li><li><a href=#記事を追加>記事を追加</a></li></ul></nav></div></div><div class=content id=content><p>HugoとGithub Pagesで個人ブログを作ったので作業メモ。
+macOS Catalina 10.15.4で作業した。</p><h1 id=手順>手順</h1><ul><li>GitHub repositoryを作成</li><li>Hugoでサイト作成</li><li>GitHub Pagesで公開</li><li>独自ドメイン設定</li><li>記事を追加</li></ul><h2 id=github-repositoryを作成>GitHub repositoryを作成</h2><p>GitHubで新しくリポジトリ(例えば<code>blog</code>という名前)を作成する。このリポジトリにはHugoのプロジェクトを配置する。プライベートリポジトリでも可。
+次に、<code>username.github.io</code>リポジトリを作成する。ここにはHugoで生成したサイトのファイルを配置するため、パブリックリポジトリとして作成する必要がある。</p><ul><li><a href=https://github.com/mshr-h/mshr-h.github.io target=_blank rel="noopener noreffer">mshr-h/mshr-h.github.io</a></li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ hugo new site blog
+$ cd blog
+$ git submodule add https://github.com/zhaohuabing/hugo-theme-cleanwhite themes/hugo-theme-cleanwhite
+$ cp -r themes/beautifulhugo/exampleSite/* .
+$ hugo server -D
+</code></pre></td></tr></table></div></div><h2 id=hugoでサイト作成>Hugoでサイト作成</h2><p>Hugoをインストールする。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ brew isntall hugo
+</code></pre></td></tr></table></div></div><p>作業ディレクトリに移動し、<code>hugo</code>コマンドで新規プロジェクトを作成する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ <span class=nb>cd</span> ~/workspace
+$ hugo new site blog
+$ <span class=nb>cd</span> blog
+</code></pre></td></tr></table></div></div><p>テーマをインストールする。今回は<a href=https://themes.gohugo.io/hugo-theme-cleanwhite target=_blank rel="noopener noreffer">Clean White</a>を選んだ。テーマはsubmoduleとして追加する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ git init
+$ git submodule add https://github.com/zhaohuabing/hugo-theme-cleanwhite.git themes/hugo-theme-cleanwhite
+</code></pre></td></tr></table></div></div><p>テーマが用意してくれているサンプルページをベースに構築する。サンプルページをコピーする。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ <span class=nb>cd</span> ~/workspace/blog
+$ cp -r themes/hugo-theme-cleanwhite/exampleSite/* .
+</code></pre></td></tr></table></div></div><p>設定ファルを編集する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ vim config.toml
+</code></pre></td></tr></table></div></div><p><code>baseurl</code>は独自ドメインを使わない場合<code>username.github.io</code>、使う場合はそのドメインを指定する。<code>title</code>はブログのタイトルを、<code>theme</code>はテーマ名(<code>hugo-theme-cleanwhite</code>)を指定する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-toml data-lang=toml><span class=nx>baseurl</span> <span class=p>=</span> <span class=s2>&#34;https://keepcodingkeepclimbing.com/&#34;</span>
+<span class=nx>title</span> <span class=p>=</span> <span class=s2>&#34;Keep Coding, Keep Climbing&#34;</span>
+<span class=nx>theme</span> <span class=p>=</span> <span class=s2>&#34;hugo-theme-cleanwhite&#34;</span>
+<span class=nx>languageCode</span> <span class=p>=</span> <span class=s2>&#34;ja-jp&#34;</span>
+<span class=nx>googleAnalytics</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+<span class=nx>paginate</span> <span class=p>=</span> <span class=mi>8</span> <span class=c>#frontpage pagination</span>
+<span class=nx>hasCJKLanguage</span> <span class=p>=</span> <span class=kc>true</span>
+
+<span class=p>[</span><span class=nx>outputs</span><span class=p>]</span>
+<span class=nx>home</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;HTML&#34;</span><span class=p>,</span> <span class=s2>&#34;RSS&#34;</span><span class=p>,</span> <span class=s2>&#34;Algolia&#34;</span><span class=p>]</span>
+
+<span class=p>[</span><span class=nx>params</span><span class=p>]</span>
+<span class=nx>header_image</span> <span class=p>=</span> <span class=s2>&#34;img/home-bg-jeep.jpg&#34;</span>
+<span class=nx>SEOTitle</span> <span class=p>=</span> <span class=s2>&#34;Keep Coding, Keep Climbing&#34;</span>
+<span class=nx>description</span> <span class=p>=</span> <span class=s2>&#34;programming and rock climbing&#34;</span>
+<span class=nx>keyword</span> <span class=p>=</span> <span class=s2>&#34;programming, software, machine learning, climbing, bouldering, blog&#34;</span>
+<span class=nx>slogan</span> <span class=p>=</span> <span class=s2>&#34;programming and rock climbing&#34;</span>
+<span class=nx>image_404</span> <span class=p>=</span> <span class=s2>&#34;img/404-bg.jpg&#34;</span>
+<span class=nx>title_404</span> <span class=p>=</span> <span class=s2>&#34;404 Not Found&#34;</span>
+<span class=nx>omit_categories</span> <span class=p>=</span> <span class=kc>false</span>
+<span class=c># algolia site search</span>
+<span class=nx>algolia_search</span> <span class=p>=</span> <span class=kc>true</span>
+<span class=nx>algolia_appId</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+<span class=nx>algolia_indexName</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+<span class=nx>algolia_apiKey</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+<span class=c># Sidebar settings</span>
+<span class=nx>sidebar_about_description</span> <span class=p>=</span> <span class=s2>&#34;Edge deep learning research engineer, open source enthusiast and rock climber&#34;</span>
+<span class=nx>sidebar_avatar</span> <span class=p>=</span> <span class=s2>&#34;img/avatar.jpg&#34;</span> <span class=c># use absolute URL, seeing it&#39;s used in both `/` and `/about/`</span>
+<span class=nx>featured_tags</span> <span class=p>=</span> <span class=kc>true</span>
+<span class=nx>featured_condition_size</span> <span class=p>=</span> <span class=mi>1</span>
+<span class=nx>about_me</span> <span class=p>=</span> <span class=kc>true</span>
+<span class=nx>custom_css</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;css/custom-font.css&#34;</span><span class=p>]</span>
+
+<span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>social</span><span class=p>]</span>
+<span class=nx>rss</span> <span class=p>=</span> <span class=kc>true</span>
+<span class=nx>twitter</span> <span class=p>=</span> <span class=s2>&#34;https://twitter.com/mshrh3&#34;</span>
+<span class=nx>linkedin</span> <span class=p>=</span> <span class=s2>&#34;https://www.linkedin.com/in/masahiro-hiramori-63b992167/&#34;</span>
+<span class=nx>github</span> <span class=p>=</span> <span class=s2>&#34;https://github.com/mshr-h&#34;</span>
+<span class=nx>googlescholar</span> <span class=p>=</span> <span class=s2>&#34;https://scholar.google.com/citations?user=NSCMi88AAAAJ&#34;</span>
+<span class=nx>facebook</span> <span class=p>=</span> <span class=s2>&#34;https://www.facebook.com/masahiro.hiramori&#34;</span>
+
+<span class=p>[[</span><span class=nx>params</span><span class=p>.</span><span class=nx>addtional_menus</span><span class=p>]]</span>
+<span class=nx>title</span> <span class=p>=</span> <span class=s2>&#34;CV&#34;</span>
+<span class=nx>href</span> <span class=p>=</span> <span class=s2>&#34;/top/cv/&#34;</span>
+
+<span class=p>[[</span><span class=nx>params</span><span class=p>.</span><span class=nx>addtional_menus</span><span class=p>]]</span>
+<span class=nx>title</span> <span class=p>=</span> <span class=s2>&#34;ABOUT&#34;</span>
+<span class=nx>href</span> <span class=p>=</span> <span class=s2>&#34;/top/about/&#34;</span>
+
+<span class=p>[</span><span class=nx>outputFormats</span><span class=p>.</span><span class=nx>Algolia</span><span class=p>]</span>
+<span class=nx>baseName</span> <span class=p>=</span> <span class=s2>&#34;algolia&#34;</span>
+<span class=nx>isPlainText</span> <span class=p>=</span> <span class=kc>true</span>
+<span class=nx>mediaType</span> <span class=p>=</span> <span class=s2>&#34;application/json&#34;</span>
+<span class=nx>notAlternative</span> <span class=p>=</span> <span class=kc>true</span>
+
+<span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>algolia</span><span class=p>]</span>
+<span class=nx>vars</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;title&#34;</span><span class=p>,</span> <span class=s2>&#34;summary&#34;</span><span class=p>,</span> <span class=s2>&#34;date&#34;</span><span class=p>,</span> <span class=s2>&#34;publishdate&#34;</span><span class=p>,</span> <span class=s2>&#34;expirydate&#34;</span><span class=p>,</span> <span class=s2>&#34;permalink&#34;</span><span class=p>]</span>
+<span class=nx>params</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;categories&#34;</span><span class=p>,</span> <span class=s2>&#34;tags&#34;</span><span class=p>]</span>
+
+<span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>tableOfContents</span><span class=p>]</span>
+<span class=nx>endLevel</span> <span class=p>=</span> <span class=mi>2</span>
+<span class=nx>startLevel</span> <span class=p>=</span> <span class=mi>1</span>
+
+<span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>highlight</span><span class=p>]</span>
+<span class=nx>style</span> <span class=p>=</span> <span class=s2>&#34;dracula&#34;</span>
+
+<span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>renderer</span><span class=p>]</span>
+<span class=nx>unsafe</span> <span class=p>=</span> <span class=kc>true</span>
+</code></pre></td></tr></table></div></div><p>以下のコマンドでローカルにて確認できる。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ hugo server -D
+</code></pre></td></tr></table></div></div><p><a href=http://localhost:1313/ target=_blank rel="noopener noreffer">http://localhost:1313/</a>をブラウザで開くとサンプルページが表示される。</p><h2 id=github-pagesで公開>GitHub Pagesで公開</h2><p>hugoでビルドしたページは<code>public/</code>ディレクトリに生成される。このディレクトリを<code>username.github.io</code>にプッシュすることで、GitHub Pagesが更新される。
+hugoで作成した<code>blog</code>ディレクトリをリモートの<code>blog/</code>リポジトリに紐付け、<code>public/</code>ディレクトリを<code>username.github.io</code>リポジトリに紐付ける。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ <span class=nb>cd</span> ~/workspace/blog
+$ git remote add origin https://github.com/mshr-h/blog
+$ git submodule add -b master https://github.com/mshr-h/mshr-h.github.io public
+</code></pre></td></tr></table></div></div><p>この時点で各リポジトリとディレクトリの対応関係は以下の通り。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>~/workspace/blog/ &lt;-&gt; https://github.com/mshr-h/blog
+            +-public &lt;-&gt; github.com/mshr-h/mshr-h.github.io
+            +-themes/hugo-theme-cleanwhite/ &lt;-&gt; https://github.com/zhaohuabing/hugo-theme-cleanwhite.git
+</code></pre></td></tr></table></div></div><p>Clean Whiteテーマにはデプロイスクリプト<code>deploy.sh</code>が用意されているので、これ使ってデプロイする。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ <span class=nb>cd</span> ~/workspace/blog
+$ ./deploy.sh
+</code></pre></td></tr></table></div></div><h2 id=独自ドメイン設定>独自ドメイン設定</h2><p>独自ドメインを使う場合、<code>username.github.io</code>リポジトリとDNSレコードの設定が必要。</p><p><code>username.github.io</code>リポジトリの設定タブからGitHub PagesのCustom domainに独自ドメインを指定する。</p><p>DNSのAレコードに以下を追加する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-txt data-lang=txt>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre></td></tr></table></div></div><p>詳細は<a href=https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site target=_blank rel="noopener noreffer">ここ</a>を参照する。</p><h2 id=記事を追加>記事を追加</h2><p>新しい記事を作成し、デプロイする。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ hugo new post/2020-04-01-article-title.md
+$ vim content/post/2020-04-01-article-title.md
+$ ./deploy.sh
+</code></pre></td></tr></table></div></div><h1 id=clean-whiteテーマ特有の設定>Clean Whiteテーマ特有の設定</h1><p>Clearn Whiteテーマはデフォルトで中華フォントのため、日本語フォントを使うためにはCustom CSSでフォントを指定する必要がある。</p><p><code>static/css/custom-font.css</code>に以下の内容を保存する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-css data-lang=css><span class=nt>body</span><span class=o>,</span> <span class=nt>h1</span><span class=o>,</span> <span class=nt>h2</span><span class=o>,</span> <span class=nt>h3</span><span class=o>,</span> <span class=nt>h4</span><span class=o>,</span> <span class=nt>h5</span><span class=o>,</span> <span class=nt>h6</span><span class=o>,</span> <span class=p>.</span><span class=nc>navbar-custom</span> <span class=p>{</span> 
+    <span class=k>font-family</span><span class=p>:</span> <span class=n>Helvetica</span><span class=p>,</span><span class=s2>&#34;Sawarabi Gothic&#34;</span><span class=p>,</span><span class=n>Meiryo</span><span class=p>,</span><span class=s2>&#34;メイリオ&#34;</span><span class=p>,</span><span class=s2>&#34;Hiragino Kaku Gothic ProN&#34;</span><span class=p>,</span> <span class=s2>&#34;ヒラギノ角ゴ ProN&#34;</span><span class=p>,</span><span class=n>YuGothic</span><span class=p>,</span><span class=s2>&#34;游ゴシック&#34;</span><span class=p>,</span><span class=n>Arial</span><span class=p>,</span><span class=kc>sans-serif</span><span class=p>;</span> 
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p><code>config.toml</code>にすでに<code>custom_css</code>に関して記載があるため、以下に書き換える。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-toml data-lang=toml><span class=nx>custom_css</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;css/custom-font.css&#34;</span><span class=p>]</span>
+</code></pre></td></tr></table></div></div><p>これでブログの設定完了。</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2020-05-02</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/posts/new-website-with-hugo/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/hugo/>Hugo</a></section><section><span><a href=javascript:void(0); onclick=window.history.back();>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/macos-tips/ class=prev rel=prev title="macOS Tips"><i class="fas fa-angle-left fa-fw"></i>macOS Tips</a>
+<a href=/posts/dns-record/ class=next rel=next title=DNSレコードの種類>DNSレコードの種類<i class="fas fa-angle-right fa-fw"></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.74.1">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i>LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2018 - 2020</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Masahiro Hiramori</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw"></i></a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/custom-font.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script type=text/javascript>window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{}};</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

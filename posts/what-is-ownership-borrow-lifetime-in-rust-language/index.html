@@ -1,0 +1,203 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>Rustの所有権、借用、ライフタイムについて雑に理解した - Keep Coding, Keep Climbing</title><meta name=Description content="programming and rock climbing"><meta property="og:title" content="Rustの所有権、借用、ライフタイムについて雑に理解した"><meta property="og:description" content="最近、Rustプログラミング言語に入門した。Rustの公式ページには、Rustの特徴として信頼性について記載されている。本記事では、Rust"><meta property="og:type" content="article"><meta property="og:url" content="https://keepcodingkeepclimbing.com/posts/what-is-ownership-borrow-lifetime-in-rust-language/"><meta property="og:image" content="https://keepcodingkeepclimbing.com/img/avatar.jpg"><meta property="article:published_time" content="2020-04-15T00:00:00+00:00"><meta property="article:modified_time" content="2020-04-15T00:00:00+00:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://keepcodingkeepclimbing.com/img/avatar.jpg"><meta name=twitter:title content="Rustの所有権、借用、ライフタイムについて雑に理解した"><meta name=twitter:description content="最近、Rustプログラミング言語に入門した。Rustの公式ページには、Rustの特徴として信頼性について記載されている。本記事では、Rust"><meta name=application-name content="Keep Coding, Keep Climbing"><meta name=apple-mobile-web-app-title content="Keep Coding, Keep Climbing"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://keepcodingkeepclimbing.com/posts/what-is-ownership-borrow-lifetime-in-rust-language/><link rel=prev href=https://keepcodingkeepclimbing.com/posts/macos-ftdi-ft232-usb-serial-device/><link rel=next href=https://keepcodingkeepclimbing.com/posts/h8300-development-tools-for-macos/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Rustの所有権、借用、ライフタイムについて雑に理解した","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/keepcodingkeepclimbing.com\/posts\/what-is-ownership-borrow-lifetime-in-rust-language\/"},"genre":"posts","keywords":"Rust","wordcount":2387,"url":"https:\/\/keepcodingkeepclimbing.com\/posts\/what-is-ownership-borrow-lifetime-in-rust-language\/","datePublished":"2020-04-15T00:00:00+00:00","dateModified":"2020-04-15T00:00:00+00:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Masahiro Hiramori"},"author":{"@type":"Person","name":"     \"Masahiro Hiramori\""},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':('auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark'))&&document.body.setAttribute('theme','dark');</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing">Keep Coding, Keep Climbing</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/tags/>Tags </a><a class=menu-item href=/categories/>Categories </a><a class=menu-item href=/cv>CV </a><a class=menu-item href=/about>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing">Keep Coding, Keep Climbing</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/posts/>Posts</a><a class=menu-item href=/tags/>Tags</a><a class=menu-item href=/categories/>Categories</a><a class=menu-item href=/cv>CV</a><a class=menu-item href=/about>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Rustの所有権、借用、ライフタイムについて雑に理解した</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>    "Masahiro Hiramori"</a></span>&nbsp;<span class=post-category>included in <a href=/categories/tech/><i class="far fa-folder fa-fw"></i>Tech</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2020-04-15>2020-04-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;2387 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;5 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#ムーブとコピー>ムーブとコピー</a></li><li><a href=#関数をまたいだ所有権の移動>関数をまたいだ所有権の移動</a></li></ul></nav></div></div><div class=content id=content><p>最近、Rustプログラミング言語に入門した。Rustの公式ページには、Rustの特徴として信頼性について記載されている。本記事では、Rustが保証するメモリ安全性とスレッド安全性を実現する、所有権システムについて雑に理解したので説明する。</p><h1 id=所有権システム>所有権システム</h1><p>Rustは、コンパイル時にメモリ安全性に関するバグをコンパイルエラーとして開発者に教えてくれる。所有権システムは、メモリ安全性に関するバグをRustコンパイラが発見するための仕組み。所有権システムは、次の3つの概念で構成されている。</p><ul><li>所有権</li><li>借用</li><li>ライフタイム</li></ul><h1 id=所有権>所有権</h1><p>変数束縛において、Rustでは所有権という特性を持つ。変数は、束縛している値の「所有権」を持つ。Rustの値は、所有権を持つ変数がスコープから外れると、その値のリソースは開放される。</p><p>例えば以下の例では、内側の<code>{}</code>に入ると、新しい値<code>Vec&lt;T></code>が作成され、変数<code>bar</code>が値を束縛する。変数<code>bar</code>のスコープは内側の<code>{}</code>の間のため、<code>{}</code>の前でも後でも使えない。内側の<code>{}</code>を抜けると、変数<code>bar</code>のスコープが終了し、値<code>Vec&lt;T></code>のリソースが開放(デストラクタ<code>drop()</code>が呼ばれる)される。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>foo</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=c1>// barは使えない
+</span><span class=c1></span><span class=w>    </span><span class=p>{</span><span class=w>
+</span><span class=w>        </span><span class=kd>let</span><span class=w> </span><span class=n>bar</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>vec</span><span class=o>!</span><span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>];</span><span class=w>
+</span><span class=w>        </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;bar.0 = {}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>bar</span><span class=p>.</span><span class=mi>0</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=p>}</span><span class=w>
+</span><span class=w>    </span><span class=c1>// Vec&lt;T&gt;のリソースが開放される
+</span><span class=c1></span><span class=w>    </span><span class=c1>// barは使えない
+</span><span class=c1></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h2 id=ムーブとコピー>ムーブとコピー</h2><p>次のコードを実行すると期待通りの実行結果が得られる。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>x</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>y</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>x</span><span class=p>;</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;x = {}, y = {}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>x</span><span class=p>,</span><span class=w> </span><span class=n>y</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=c1>// =&gt; x = 1, y = 1
+</span><span class=c1></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div><p>一方、次のコードではコンパイルエラーが発生する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>x</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=nb>String</span>::<span class=n>from</span><span class=p>(</span><span class=s>&#34;hello&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>y</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>x</span><span class=p>;</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;x = {}, y = {}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>x</span><span class=p>,</span><span class=w> </span><span class=n>y</span><span class=p>);</span><span class=w>
+</span><span class=w></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=n>error</span><span class=p>[</span><span class=n>E0382</span><span class=p>]</span>: <span class=nc>borrow</span><span class=w> </span><span class=n>of</span><span class=w> </span><span class=n>moved</span><span class=w> </span><span class=n>value</span>: <span class=err>`</span><span class=n>x</span><span class=err>`</span><span class=w>
+</span><span class=w> </span><span class=o>-</span>-&gt; <span class=nc>src</span><span class=o>/</span><span class=n>main</span><span class=p>.</span><span class=n>rs</span>:<span class=mi>4</span>:<span class=mi>32</span><span class=w>
+</span><span class=w>  </span><span class=o>|</span><span class=w>
+</span><span class=w></span><span class=mi>2</span><span class=w> </span><span class=o>|</span><span class=w>     </span><span class=kd>let</span><span class=w> </span><span class=n>x</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=nb>String</span>::<span class=n>from</span><span class=p>(</span><span class=s>&#34;hello&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w>  </span><span class=o>|</span><span class=w>         </span><span class=o>-</span><span class=w> </span><span class=k>move</span><span class=w> </span><span class=n>occurs</span><span class=w> </span><span class=n>because</span><span class=w> </span><span class=err>`</span><span class=n>x</span><span class=err>`</span><span class=w> </span><span class=n>has</span><span class=w> </span><span class=k>type</span> <span class=err>`</span><span class=n>std</span>::<span class=n>string</span>::<span class=nb>String</span><span class=err>`</span><span class=p>,</span><span class=w> </span><span class=n>which</span><span class=w> </span><span class=n>does</span><span class=w> </span><span class=n>not</span><span class=w> </span><span class=n>implement</span><span class=w> </span><span class=n>the</span><span class=w> </span><span class=err>`</span><span class=nb>Copy</span><span class=err>`</span><span class=w> </span><span class=k>trait</span><span class=w>
+</span><span class=w></span><span class=mi>3</span><span class=w> </span><span class=o>|</span><span class=w>     </span><span class=kd>let</span><span class=w> </span><span class=n>y</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>x</span><span class=p>;</span><span class=w>
+</span><span class=w>  </span><span class=o>|</span><span class=w>             </span><span class=o>-</span><span class=w> </span><span class=n>value</span><span class=w> </span><span class=n>moved</span><span class=w> </span><span class=n>here</span><span class=w>
+</span><span class=w></span><span class=mi>4</span><span class=w> </span><span class=o>|</span><span class=w>     </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;x = {}, y = {}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>x</span><span class=p>,</span><span class=w> </span><span class=n>y</span><span class=p>);</span><span class=w>
+</span><span class=w>  </span><span class=o>|</span><span class=w>                                </span><span class=o>^</span><span class=w> </span><span class=n>value</span><span class=w> </span><span class=n>borrowed</span><span class=w> </span><span class=n>here</span><span class=w> </span><span class=n>after</span><span class=w> </span><span class=k>move</span><span class=w>
+</span></code></pre></td></tr></table></div></div><p>Rustでは、関数の引数や代入文は値そのものを渡すのではなく、所有権をムーブするのがデフォルト。<code>let y = x</code>で<code>std::string::String</code>の所有権は<code>y</code>にムーブされたにも関わらず、<code>println!("x = {}, y = {}", x, y)</code>で<code>x</code>を使おうとしたため、エラーが発生した。</p><p>Rustのプリミティブ型のうち、スカラ型にはCopyトレイトが実装されている。Copyトレイトが実装されている変数の場合、値をコピーして、新しくその値の所有権を持つ変数を作成する。最初の例では、<code>x</code>はCopyトレイトが実装されているため、<code>let y = x</code>は所有権のムーブではなく、コピーされ、後続の処理においても<code>x</code>を使うことができる。</p><h2 id=関数をまたいだ所有権の移動>関数をまたいだ所有権の移動</h2><p>関数呼び出しにおける引数においても、所有権はムーブする。次の例では、<code>print_string(str)</code>で<code>str</code>を引数として指定しているため、所有権もムーブする。そのため、<code>print_string(str)</code>以降の処理では<code>str</code>を使用することができない。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>print_string</span><span class=p>(</span><span class=n>x</span>: <span class=nb>String</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;{}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>x</span><span class=p>);</span><span class=w>
+</span><span class=w></span><span class=p>}</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=kt>str</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=nb>String</span>::<span class=n>from</span><span class=p>(</span><span class=s>&#34;sample&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=n>print_string</span><span class=p>(</span><span class=kt>str</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=c1>// strの所有権はprint_stinr()に移動したため、以降strは使えない
+</span><span class=c1></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div><p>次のように、<code>print_string()</code>で<code>x</code>の所有権を返し、<code>main()</code>で所有権を受け取ることで解決できる。しかし、このような書き方は煩雑のため、「借用」を使うことで同様のことを実現する仕組みがある。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>print_string</span><span class=p>(</span><span class=n>x</span>: <span class=nb>String</span><span class=p>)</span><span class=w> </span>-&gt; <span class=nb>String</span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;{}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>x</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=n>x</span><span class=w>
+</span><span class=w></span><span class=p>}</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=kt>str</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=nb>String</span>::<span class=n>from</span><span class=p>(</span><span class=s>&#34;sample&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>str2</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>print_string</span><span class=p>(</span><span class=kt>str</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;{}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>str2</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=c1>// =&gt; sampleと出力される
+</span><span class=c1></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h1 id=借用>借用</h1><p>借用とは、所有権をムーブせずに、所有権を一時的に貸し出す参照を作る仕組み。参照は、スコープが終了してもリソースを開放しない。上記の例を借用を用いて書き直したのが以下のプログラム。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>print_string</span><span class=p>(</span><span class=n>x</span>: <span class=kp>&amp;</span><span class=nb>String</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;{}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>x</span><span class=p>);</span><span class=w>
+</span><span class=w></span><span class=p>}</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=kt>str</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=nb>String</span>::<span class=n>from</span><span class=p>(</span><span class=s>&#34;sample&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=n>print_string</span><span class=p>(</span><span class=o>&amp;</span><span class=kt>str</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;{}&#34;</span><span class=p>,</span><span class=w> </span><span class=kt>str</span><span class=p>);</span><span class=w>
+</span><span class=w></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div><p><code>&</code>は参照を意味する。参照は何らかの実態を指すポインタで、デフォルトでイミュータブルのため、参照している値を変更できない。変更するには、<code>&mut</code>を付けてミュータブルな参照を作る必要がある。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>print_string</span><span class=p>(</span><span class=n>x</span>: <span class=kp>&amp;</span><span class=nc>mut</span><span class=w> </span><span class=nb>String</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=n>x</span><span class=p>.</span><span class=n>push_str</span><span class=p>(</span><span class=s>&#34; text&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w></span><span class=p>}</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=k>mut</span><span class=w> </span><span class=kt>str</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=nb>String</span>::<span class=n>from</span><span class=p>(</span><span class=s>&#34;sample&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;{}&#34;</span><span class=p>,</span><span class=w> </span><span class=kt>str</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=n>print_string</span><span class=p>(</span><span class=o>&amp;</span><span class=k>mut</span><span class=w> </span><span class=kt>str</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;{}&#34;</span><span class=p>,</span><span class=w> </span><span class=kt>str</span><span class=p>);</span><span class=w>
+</span><span class=w></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div><p>借用は、次のいずれか一方の状態を満たす必要がある。</p><ul><li><p>ただ一つのミュータブルな参照が存在する状態</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=k>mut</span><span class=w> </span><span class=kt>str</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=nb>String</span>::<span class=n>from</span><span class=p>(</span><span class=s>&#34;sample&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>str1</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=o>&amp;</span><span class=k>mut</span><span class=w> </span><span class=kt>str</span><span class=p>;</span><span class=w>
+</span><span class=w>    </span><span class=n>str1</span><span class=p>.</span><span class=n>push_str</span><span class=p>(</span><span class=s>&#34; text&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;str1: {}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>str1</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=c1>// =&gt; sample text
+</span><span class=c1></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div></li><li><p>複数のイミュータブルな参照が存在する状態</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=k>mut</span><span class=w> </span><span class=kt>str</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=nb>String</span>::<span class=n>from</span><span class=p>(</span><span class=s>&#34;sample&#34;</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>str1</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=o>&amp;</span><span class=kt>str</span><span class=p>;</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>str2</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=o>&amp;</span><span class=kt>str</span><span class=p>;</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;str1: {}, str2: {}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>str1</span><span class=p>,</span><span class=w> </span><span class=n>str2</span><span class=p>);</span><span class=w>
+</span><span class=w>    </span><span class=c1>// =&gt; str1: sample, str2: sample
+</span><span class=c1></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div></li></ul><h1 id=ライフタイム>ライフタイム</h1><p>ライフタイムとは、参照が有効になる範囲(スコープ)のこと。参照は、何らかの実体を指すポインタのため、その指している実体より長く生き残ることはできない。ライフタイムにより、ある参照には必ず実体が存在する、ということが保証される。多くの場合、プログラマはRustコンパイラがライフタイムを推論してくれるため、ライフタイムを明示的に指定する必要はない。Rustコンパイラは、借用チェッカにより参照のスコープを比較することで、参照が有効かをチェックする。</p><p>例えば、下記のプログラムはコンパイルエラーが発生する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>y_ref</span><span class=p>;</span><span class=w>
+</span><span class=w>    </span><span class=p>{</span><span class=w>
+</span><span class=w>        </span><span class=kd>let</span><span class=w> </span><span class=n>y</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>10</span><span class=p>;</span><span class=w>
+</span><span class=w>        </span><span class=n>y_ref</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=o>&amp;</span><span class=n>y</span><span class=p>;</span><span class=w>
+</span><span class=w>    </span><span class=p>}</span><span class=w>
+</span><span class=w>    </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;x = {}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>y_ref</span><span class=p>);</span><span class=w>
+</span><span class=w></span><span class=p>}</span><span class=w>
+</span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-rust data-lang=rust><span class=n>error</span><span class=p>[</span><span class=n>E0597</span><span class=p>]</span>: <span class=err>`</span><span class=n>y</span><span class=err>`</span><span class=w> </span><span class=n>does</span><span class=w> </span><span class=n>not</span><span class=w> </span><span class=n>live</span><span class=w> </span><span class=n>long</span><span class=w> </span><span class=n>enough</span><span class=w>
+</span><span class=w> </span><span class=o>-</span>-&gt; <span class=nc>src</span><span class=o>/</span><span class=n>main</span><span class=p>.</span><span class=n>rs</span>:<span class=mi>5</span>:<span class=mi>17</span><span class=w>
+</span><span class=w>  </span><span class=o>|</span><span class=w>
+</span><span class=w></span><span class=mi>5</span><span class=w> </span><span class=o>|</span><span class=w>         </span><span class=n>y_ref</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=o>&amp;</span><span class=n>y</span><span class=p>;</span><span class=w>
+</span><span class=w>  </span><span class=o>|</span><span class=w>                 </span><span class=o>^^</span><span class=w> </span><span class=n>borrowed</span><span class=w> </span><span class=n>value</span><span class=w> </span><span class=n>does</span><span class=w> </span><span class=n>not</span><span class=w> </span><span class=n>live</span><span class=w> </span><span class=n>long</span><span class=w> </span><span class=n>enough</span><span class=w>
+</span><span class=w></span><span class=mi>6</span><span class=w> </span><span class=o>|</span><span class=w>     </span><span class=p>}</span><span class=w>
+</span><span class=w>  </span><span class=o>|</span><span class=w>     </span><span class=o>-</span><span class=w> </span><span class=err>`</span><span class=n>y</span><span class=err>`</span><span class=w> </span><span class=n>dropped</span><span class=w> </span><span class=n>here</span><span class=w> </span><span class=k>while</span><span class=w> </span><span class=n>still</span><span class=w> </span><span class=n>borrowed</span><span class=w>
+</span><span class=w></span><span class=mi>7</span><span class=w> </span><span class=o>|</span><span class=w>     </span><span class=n>println</span><span class=o>!</span><span class=p>(</span><span class=s>&#34;x = {}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>y_ref</span><span class=p>);</span><span class=w>
+</span><span class=w>  </span><span class=o>|</span><span class=w>                        </span><span class=o>-----</span><span class=w> </span><span class=n>borrow</span><span class=w> </span><span class=n>later</span><span class=w> </span><span class=n>used</span><span class=w> </span><span class=n>here</span><span class=w>
+</span></code></pre></td></tr></table></div></div><p>これは、<code>y</code>のライフタイムは内側の<code>{}</code>であるのに対し、<code>y</code>を参照する<code>y_ref</code>はその外側であり、<code>y</code>は<code>y_ref</code>より長く生き残れないため、借用チェッカによりエラーが発生する。</p><h1 id=まとめ>まとめ</h1><p>Rustの所有権システムは、所有権、借用、ライフタイムの3つの概念から構成されている。</p><p>「所有権」とは、ある値は一つの変数のみからしか読み書きを行わない、というルールのこと。所有権を持つ変数のスコープが終了すると、その値は破棄される。ある変数が所有する所有権は、他の変数へ移動(ムーブ)することができ、ムーブすると元の変数から値にアクセスできなくなる。</p><p>ムーブすることなく、値へアクセスするために、「借用」という所有権を一時的に貸し出す仕組みにより、所有権を持つ変数への参照を作ることができる。借用は、「ただ一つのミュータブルな参照が存在する状態」、「複数のイミュータブルな参照が存在する状態」のいずれか一つの状態を満たすことができる。</p><p>参照には「ライフタイム」が存在する。ライフタイムとは、その参照が有効であるスコープのこと。Rustコンパイラは、ライフタイムを比較することで、参照が有効であることを保証する。</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2020-04-15</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/posts/what-is-ownership-borrow-lifetime-in-rust-language/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/rust/>Rust</a></section><section><span><a href=javascript:void(0); onclick=window.history.back();>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/macos-ftdi-ft232-usb-serial-device/ class=prev rel=prev title=FTDI社製FT232シリーズのUSBシリアル変換アダプタをmacOSで使う><i class="fas fa-angle-left fa-fw"></i>FTDI社製FT232シリーズのUSBシリアル変換アダプタをmacOSで使う</a>
+<a href=/posts/h8300-development-tools-for-macos/ class=next rel=next title=H8/3069Fの開発ツールをmacOSに導入>H8/3069Fの開発ツールをmacOSに導入<i class="fas fa-angle-right fa-fw"></i></a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.74.1">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i>LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2018 - 2020</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Masahiro Hiramori</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw"></i></a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/custom-font.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script type=text/javascript>window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{}};</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
