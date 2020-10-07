@@ -17,7 +17,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.74.1'
+          hugo-version: 'latest'
 
       - name: Build
         run: hugo --gc --minify --cleanDestinationDir
@@ -28,4 +28,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: master
           publish_dir: ./public
-          cname: keepcodingkeepclimbing.com 
+          cname: mshr-h.com 
