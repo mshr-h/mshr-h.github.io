@@ -1,0 +1,41 @@
+body, h1, h2, h3, h4, h5, h6, .navbar-custom { 
+    font-family: Helvetica,"Sawarabi Gothic",Meiryo,"メイリオ","Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN",YuGothic,"游ゴシック",Arial,sans-serif; 
+}
+.sidebar-container {
+    color: #404040;
+    font-size: 14px;
+}
+
+.intro-header .site-heading h1, .intro-header .page-heading h1 {
+    font-size: 50px;
+}
+
+.single h2, h3 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.single h3 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.single h4 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.single h5 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.single h6 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.single ul {
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
