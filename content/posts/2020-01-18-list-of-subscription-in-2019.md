@@ -6,7 +6,7 @@ description: ""
 date:        "2020-01-18"
 author:      "Masahiro Hiramori"
 tags:        []
-categories:  ["Tech" ]
+categories:  ["Life" ]
 draft:       false
 ---
 

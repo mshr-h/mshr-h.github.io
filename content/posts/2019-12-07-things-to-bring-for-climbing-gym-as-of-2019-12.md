@@ -6,7 +6,7 @@ description: ""
 date:        "2019-12-07"
 author:      "Masahiro Hiramori"
 tags:        []
-categories:  ["Tech" ]
+categories:  ["Climbing" ]
 draft:       false
 ---
 

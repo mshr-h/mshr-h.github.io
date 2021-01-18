@@ -6,7 +6,7 @@ description: ""
 date:        "2019-12-14"
 author:      "Masahiro Hiramori"
 tags:        []
-categories:  ["Tech" ]
+categories:  ["English" ]
 draft:       false
 ---
 

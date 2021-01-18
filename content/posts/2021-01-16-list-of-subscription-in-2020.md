@@ -7,7 +7,7 @@ date:        "2021-01-16"
 author:      "Masahiro Hiramori"
 image:       ""
 tags:        []
-categories:  ["Tech"]
+categories:  ["Life"]
 draft:       false
 ---
 
