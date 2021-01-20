@@ -1,5 +1,11 @@
 # blog
 
+## clone repo
+
+```sh
+$ git clone git@github.com:mshr-h/mshr-h.github.io.git
+```
+
 ## new post
 
 ```sh
