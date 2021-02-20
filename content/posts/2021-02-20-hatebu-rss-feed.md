@@ -10,8 +10,6 @@ categories:  ["Tech"]
 draft:       false
 ---
 
-## 内容
-
 はてブの検索結果をRSSリーダーで取得したい場合、検索結果のURLに`&mode=rss`を追加したURLを登録する。
 
 例えば、キーワード「pybind11」の検索結果URLは以下。
