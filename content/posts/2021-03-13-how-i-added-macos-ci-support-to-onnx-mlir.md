@@ -3,7 +3,7 @@ title: "ONNX-MLIRにmacOSのCI設定を追加したときの試行錯誤メモ"
 slug: "how-i-added-macos-ci-support-to-onnx-mlir"
 subtitle:    ""
 description: ""
-date:        "2021-02-27"
+date:        "2021-03-13"
 author:      "Masahiro Hiramori"
 image:       ""
 tags:        ["ONNX", "MLIR", "GitHub Actions"]
