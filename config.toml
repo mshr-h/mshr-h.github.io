@@ -75,12 +75,12 @@ enableEmoji = true
         title = ""
         weight = 5
       [[languages.en.menu.main]]
-        identifier = "github"
+        identifier = "search"
         pre = "<i class='fab fa-github fa-fw'></i>"
         post = ""
-        name = ""
-        url = "https://github.com/mshr-h"
-        title = "GitHub"
+        name = "Search"
+        url = "/search"
+        title = ""
         weight = 6
     [languages.en.params]
       # site description
@@ -214,7 +214,7 @@ enableEmoji = true
   # which hash function used for SRI, when empty, no SRI is used ("sha256", "sha384", "sha512", "md5")
   fingerprint = ""
   # date format
-  dateFormat = "2006-01-02"
+  dateFormat = "2006-01-02 Mon"
   # website images for Open Graph and Twitter Cards
   images = ["/img/avatar.jpg"]
 

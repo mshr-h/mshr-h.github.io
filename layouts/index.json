@@ -1,0 +1,4 @@
+let articleIndex = [
+    {{ range $index , $e := .Site.RegularPages }}{{ if $index }},
+    {{end}}{{ dict "title" .Title "permalink" .Permalink "date" (.Date.Format .Site.Params.DateFormat) "body" .Plain | jsonify}}{{end}}
+];
