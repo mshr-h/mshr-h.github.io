@@ -596,3 +596,6 @@ enableEmoji = true
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
   taxonomyTerm = ["HTML"]
+
+[minify]
+  disableJSON = true
