@@ -1,0 +1,299 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>DE10-NanoにTVM VTAのRPC Serverを導入する |</title><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content><meta name=twitter:title content="DE10-NanoにTVM VTAのRPC Serverを導入する"><meta name=twitter:description content><meta name=twitter:creator content="@mshrh3"><meta name=Description content="programming and rock climbing"><meta name=Hatena::Bookmark content="nocomment"><meta property="og:title" content="DE10-NanoにTVM VTAのRPC Serverを導入する"><meta property="og:description" content="Terasic DE10-NanoにTVM VTAのRPC Serverを導入したので作業メモ。 DE10-Nanoセットアップに従う 必要なもの DE10-Nano microSD"><meta property="og:type" content="article"><meta property="og:url" content="https://mshr-h.com/posts/tvm-vta-for-de10-nano/"><meta property="og:image" content="https://mshr-h.com/img/avatar.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-04-12T00:00:00+00:00"><meta property="article:modified_time" content="2021-04-13T00:48:52+09:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://mshr-h.com/img/avatar.jpg"><meta name=twitter:title content="DE10-NanoにTVM VTAのRPC Serverを導入する"><meta name=twitter:description content="Terasic DE10-NanoにTVM VTAのRPC Serverを導入したので作業メモ。 DE10-Nanoセットアップに従う 必要なもの DE10-Nano microSD"><meta name=application-name content="Keep Coding, Keep Climbing"><meta name=apple-mobile-web-app-title content="Keep Coding, Keep Climbing"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://mshr-h.com/posts/tvm-vta-for-de10-nano/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "DE10-NanoにTVM VTAのRPC Serverを導入する",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mshr-h.com\/posts\/tvm-vta-for-de10-nano\/"
+        },"genre": "posts","wordCount":  1649 ,
+        "url": "https:\/\/mshr-h.com\/posts\/tvm-vta-for-de10-nano\/","datePublished": "2021-04-12T00:00:00+00:00","dateModified": "2021-04-13T00:48:52+09:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+        "publisher": {
+            "@type": "Person",
+            "name": "", "image": [
+            {
+            "@type": "ImageObject",
+            "url": "\/img\/avatar.jpg"
+            }
+            ]},"description": ""
+    }
+    </script><script type=application/ld+json>
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https:\/\/mshr-h.com"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tech",
+            "item": "https://mshr-h.com/categories/tech/"
+        },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "DE10-NanoにTVM VTAのRPC Serverを導入する"
+            }]
+    }
+</script></head><body data-header-desktop=fixed data-header-mobile=auto><script>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing" class="header-logo logo-svg">Keep Coding, Keep Climbing</a></div><div class=menu><nav><ul class=menu-inner><li><a class=menu-item href=/posts/>Posts</a></li><li><a class=menu-item href=/tags/>Tags</a></li><li><a class=menu-item href=/categories/>Categories</a></li><li><a class=menu-item href=/cv>CV</a></li><li><a class=menu-item href=/about>About</a></li><li><a class=menu-item href=/search><i class="fab fa-github fa-fw"></i> Search</a></li></ul></nav><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><span class="svg-icon icon-moon"></span></a></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing" class=header-logo>Keep Coding, Keep Climbing</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><nav><ul><li><a class=menu-item href=/posts/ title>Posts</a></li><li><a class=menu-item href=/tags/ title>Tags</a></li><li><a class=menu-item href=/categories/ title>Categories</a></li><li><a class=menu-item href=/cv title>CV</a></li><li><a class=menu-item href=/about title>About</a></li><li><a class=menu-item href=/search title><i class="fab fa-github fa-fw"></i>Search</a></li></ul></nav><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><span class="svg-icon icon-moon"></span></a></div></div></header><main class=main><div class="container content-article page-toc theme-classic"><div class=toc id=toc-auto><div class=toc-title>Contents</div><div class=toc-content id=toc-content-auto></div></div><div class=header-post><div class=post-title><div class=post-all-meta><nav class=breadcrumbs><ol><li><a href=/>Home</a></li><li><a href=/categories/tech/>Tech</a></li><li>DE10-NanoにTVM VTAのRPC Serverを導入する</li></ol></nav><h1 class="single-title flipInX">DE10-NanoにTVM VTAのRPC Serverを導入する</h1><div class=post-meta><div class=post-meta-line><span class=post-category><a href=/categories/tech/><i class="svg-icon icon-folder"></i>Tech</a>
+</span><span class=post-meta-date><i class="svg-icon icon-clock"></i><time class=timeago datetime=2021-04-12>2021-04-12 Mon</time>
+</span><span class=post-meta-words><i class="svg-icon icon-pencil"></i>1649 words</span>
+<span class=post-meta-reading><i class="svg-icon icon-stopwatch"></i>4 minutes</span></div></div></div></div></div><article class="single toc-start"><div class="content-block content-block-first content-block-position"><div class=post><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#必要なもの>必要なもの</a></li><li><a href=#de10-nanoのセットアップ>DE10-Nanoのセットアップ</a><ul><li><a href=#パッケージ導入>パッケージ導入</a></li><li><a href=#python導入>Python導入</a></li><li><a href=#git導入>Git導入</a></li><li><a href=#tvmのrpc-serverをビルド>TVMのRPC Serverをビルド</a></li></ul></li><li><a href=#動作確認>動作確認</a></li></ul></nav></div></div><div style="margin:20px 0"><span class=post-update><b>Updated on 2021-04-13 Tue</b></span></div><p>Terasic <a href="https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1046" target=_blank rel="noopener noreffer">DE10-Nano</a>にTVM VTAのRPC Serverを導入したので作業メモ。</p><p><a href=https://tvm.apache.org/docs/vta/install.html#intel-de10-fpga-setup target=_blank rel="noopener noreffer">DE10-Nanoセットアップ</a>に従う</p><h2 id=必要なもの>必要なもの</h2><ul><li>DE10-Nano</li><li>microSDカード<ul><li>8GB以上推奨、microSDXC非対応な気がするので注意</li></ul></li><li>microUSBケーブル<ul><li>シリアル通信に必要</li></ul></li><li>LANケーブル<ul><li>ネットワークに繋ぐのに必要</li></ul></li></ul><h2 id=de10-nanoのセットアップ>DE10-Nanoのセットアップ</h2><p>まずは<a href="https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&CategoryNo=167&No=1046&PartNo=4" target=_blank rel="noopener noreffer">Terasicのページ</a>からAngstrom Linuxイメージをダウンロードする。</p><ul><li>de10-nano-image-Angstrom-v2016.12.socfpga-sdimg.2017.03.31.tgz</li></ul><p>ダウンロードしたファイルをmicroSDに書き込む。Win32DiskImagerを使用。</p><p>DE10-Nanoに電源ケーブルを接続、microSDをDE10-Nanoに挿入、microUSBケーブルでDE10-NanoとPCを接続する。</p><p>PC上でターミナルエミュレータでDE10-Nanoに接続する。TeraTermを使用。</p><p>ユーザ名：root、パスワードなしでログインする。</p><p>以降はDE10-Nano上で実行する。</p><h3 id=パッケージ導入>パッケージ導入</h3><p>システムパッケージをアップデートし、必要なパッケージを導入する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>opkg update
+okpg upgrade
+opkg install cmake
+opkg install coreutils
+</code></pre></td></tr></table></div></div><h3 id=python導入>Python導入</h3><p>Angstrom Linuxに入っているPythonは古すぎるので、Pythonソースビルドする。</p><p>ソースコードをダウンロードし、ビルド、インストールする。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>mkdir ~/workspace
+<span class=nb>cd</span> ~/workspace
+curl -O https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tgz
+tar xvf Python-3.8.8.tgz
+<span class=nb>cd</span> Python-3.8.8
+./configure
+make
+make install
+</code></pre></td></tr></table></div></div><p><code>python</code>、<code>python3</code>コマンドのシンボリックリンクを導入したPythonに置き換える。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>rm /usr/bin/python
+ln -s /usr/local/bin/python3.8 /usr/bin/python
+rm /usr/bin/python3
+ln -s /usr/local/bin/python3.8 /usr/bin/python3
+</code></pre></td></tr></table></div></div><p><code>pip</code>を最新バージョンに更新する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>/usr/local/bin/python3.8 -m pip install --upgrade pip
+</code></pre></td></tr></table></div></div><h3 id=git導入>Git導入</h3><p>Angstrom Linuxから導入できるGitはバージョンが古いので、これもソースビルドする。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>opkg install tcl tk gettext
+opkg install perl-module-pod-man
+<span class=nb>cd</span> ~/workspace
+git clone https://github.com/git/git
+<span class=nb>cd</span> git
+make configure
+./configure --prefix<span class=o>=</span>/usr
+make all
+make install
+</code></pre></td></tr></table></div></div><h3 id=tvmのrpc-serverをビルド>TVMのRPC Serverをビルド</h3><p>TVMの</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh><span class=nb>cd</span> ~/workspace
+git clone --recursive https://github.com/apache/tvm tvm
+<span class=nb>cd</span> tvm
+mkdir build
+cp cmake/config.cmake build
+<span class=nb>echo</span> <span class=s1>&#39;set(USE_VTA_FPGA ON)&#39;</span> &gt;&gt; build/config.cmak
+cp 3rdparty/vta-hw/config/de10nano_sample.json 3rdparty/vta-hw/config/vta_config.json
+<span class=nb>cd</span> build
+cmake ..
+make clean
+make runtime vta -j2
+</code></pre></td></tr></table></div></div><p>TVMのRPC Serverを起動する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh><span class=nb>cd</span> ~/workspace/tvm
+./apps/vta_rpc/start_rpc_server.sh
+</code></pre></td></tr></table></div></div><p>ホストPCとの通信に必要になるため、<code>ip</code>コマンドなどでDE10-NanoのIPアドレスをメモしておく。</p><p>以下のような出力であればOK。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>INFO:root:RPCServer: bind to 0.0.0.0:9091
+</code></pre></td></tr></table></div></div><h2 id=動作確認>動作確認</h2><p>RPCサーバーの動作確認をする。以下はホストPCで実行する。</p><p>RPC ServerのIPアドレスとポート番号を環境変数に設定する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh><span class=nb>export</span> <span class=nv>VTA_RPC_HOST</span><span class=o>=</span>192.168.10.110
+<span class=nb>export</span> <span class=nv>VTA_RPC_PORT</span><span class=o>=</span><span class=m>9091</span>
+</code></pre></td></tr></table></div></div><p>テストスクリプトを実行する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh><span class=nb>cd</span> ~/workspace/tvm
+cp 3rdparty/vta-hw/config/de10nano_sample.json 3rdparty/vta-hw/config/vta_config.json
+python vta/tests/python/de10nano/test_program_rpc.py
+python vta/tests/python/integration/test_benchmark_topi_conv2d.py
+</code></pre></td></tr></table></div></div><p>ホストPCでは以下のような標準出力。途中からエラーを吐いているが、とりあえず動いてそう。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>56, <span class=nv>width</span><span class=o>=</span>56, <span class=nv>in_filter</span><span class=o>=</span>64, <span class=nv>out_filter</span><span class=o>=</span>64, <span class=nv>hkernel</span><span class=o>=</span>3, <span class=nv>wkernel</span><span class=o>=</span>3, <span class=nv>hpad</span><span class=o>=</span>1, <span class=nv>wpad</span><span class=o>=</span>1, <span class=nv>hstride</span><span class=o>=</span>1, <span class=nv>wstride</span><span class=o>=</span>1<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.201243 sec/op, 1.14892 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>56, <span class=nv>width</span><span class=o>=</span>56, <span class=nv>in_filter</span><span class=o>=</span>64, <span class=nv>out_filter</span><span class=o>=</span>128, <span class=nv>hkernel</span><span class=o>=</span>3, <span class=nv>wkernel</span><span class=o>=</span>3, <span class=nv>hpad</span><span class=o>=</span>1, <span class=nv>wpad</span><span class=o>=</span>1, <span class=nv>hstride</span><span class=o>=</span>2, <span class=nv>wstride</span><span class=o>=</span>2<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.0930569 sec/op, 1.24231 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>56, <span class=nv>width</span><span class=o>=</span>56, <span class=nv>in_filter</span><span class=o>=</span>64, <span class=nv>out_filter</span><span class=o>=</span>128, <span class=nv>hkernel</span><span class=o>=</span>1, <span class=nv>wkernel</span><span class=o>=</span>1, <span class=nv>hpad</span><span class=o>=</span>0, <span class=nv>wpad</span><span class=o>=</span>0, <span class=nv>hstride</span><span class=o>=</span>2, <span class=nv>wstride</span><span class=o>=</span>2<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.0126302 sec/op, 1.01701 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>28, <span class=nv>width</span><span class=o>=</span>28, <span class=nv>in_filter</span><span class=o>=</span>128, <span class=nv>out_filter</span><span class=o>=</span>128, <span class=nv>hkernel</span><span class=o>=</span>3, <span class=nv>wkernel</span><span class=o>=</span>3, <span class=nv>hpad</span><span class=o>=</span>1, <span class=nv>wpad</span><span class=o>=</span>1, <span class=nv>hstride</span><span class=o>=</span>1, <span class=nv>wstride</span><span class=o>=</span>1<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.194179 sec/op, 1.19071 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>28, <span class=nv>width</span><span class=o>=</span>28, <span class=nv>in_filter</span><span class=o>=</span>128, <span class=nv>out_filter</span><span class=o>=</span>256, <span class=nv>hkernel</span><span class=o>=</span>3, <span class=nv>wkernel</span><span class=o>=</span>3, <span class=nv>hpad</span><span class=o>=</span>1, <span class=nv>wpad</span><span class=o>=</span>1, <span class=nv>hstride</span><span class=o>=</span>2, <span class=nv>wstride</span><span class=o>=</span>2<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.0934884 sec/op, 1.23658 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>28, <span class=nv>width</span><span class=o>=</span>28, <span class=nv>in_filter</span><span class=o>=</span>128, <span class=nv>out_filter</span><span class=o>=</span>256, <span class=nv>hkernel</span><span class=o>=</span>1, <span class=nv>wkernel</span><span class=o>=</span>1, <span class=nv>hpad</span><span class=o>=</span>0, <span class=nv>wpad</span><span class=o>=</span>0, <span class=nv>hstride</span><span class=o>=</span>2, <span class=nv>wstride</span><span class=o>=</span>2<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.0121611 sec/op, 1.05624 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>14, <span class=nv>width</span><span class=o>=</span>14, <span class=nv>in_filter</span><span class=o>=</span>256, <span class=nv>out_filter</span><span class=o>=</span>256, <span class=nv>hkernel</span><span class=o>=</span>3, <span class=nv>wkernel</span><span class=o>=</span>3, <span class=nv>hpad</span><span class=o>=</span>1, <span class=nv>wpad</span><span class=o>=</span>1, <span class=nv>hstride</span><span class=o>=</span>1, <span class=nv>wstride</span><span class=o>=</span>1<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.186729 sec/op, 1.23822 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>14, <span class=nv>width</span><span class=o>=</span>14, <span class=nv>in_filter</span><span class=o>=</span>256, <span class=nv>out_filter</span><span class=o>=</span>512, <span class=nv>hkernel</span><span class=o>=</span>3, <span class=nv>wkernel</span><span class=o>=</span>3, <span class=nv>hpad</span><span class=o>=</span>1, <span class=nv>wpad</span><span class=o>=</span>1, <span class=nv>hstride</span><span class=o>=</span>2, <span class=nv>wstride</span><span class=o>=</span>2<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.11122 sec/op, 1.03943 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>14, <span class=nv>width</span><span class=o>=</span>14, <span class=nv>in_filter</span><span class=o>=</span>256, <span class=nv>out_filter</span><span class=o>=</span>512, <span class=nv>hkernel</span><span class=o>=</span>1, <span class=nv>wkernel</span><span class=o>=</span>1, <span class=nv>hpad</span><span class=o>=</span>0, <span class=nv>wpad</span><span class=o>=</span>0, <span class=nv>hstride</span><span class=o>=</span>2, <span class=nv>wstride</span><span class=o>=</span>2<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.0136669 sec/op, 0.939866 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>7, <span class=nv>width</span><span class=o>=</span>7, <span class=nv>in_filter</span><span class=o>=</span>512, <span class=nv>out_filter</span><span class=o>=</span>512, <span class=nv>hkernel</span><span class=o>=</span>3, <span class=nv>wkernel</span><span class=o>=</span>3, <span class=nv>hpad</span><span class=o>=</span>1, <span class=nv>wpad</span><span class=o>=</span>1, <span class=nv>hstride</span><span class=o>=</span>1, <span class=nv>wstride</span><span class=o>=</span>1<span class=o>)</span>  
+CPU CONV2D TEST PASSED: Time <span class=nv>cost</span> <span class=o>=</span> 0.223079 sec/op, 1.03645 GOPS  
+Conv2DWorkload<span class=o>(</span><span class=nv>batch</span><span class=o>=</span>1, <span class=nv>height</span><span class=o>=</span>56, <span class=nv>width</span><span class=o>=</span>56, <span class=nv>in_filter</span><span class=o>=</span>64, <span class=nv>out_filter</span><span class=o>=</span>64, <span class=nv>hkernel</span><span class=o>=</span>3, <span class=nv>wkernel</span><span class=o>=</span>3, <span class=nv>hpad</span><span class=o>=</span>1, <span class=nv>wpad</span><span class=o>=</span>1, <span class=nv>hstride</span><span class=o>=</span>1, <span class=nv>wstride</span><span class=o>=</span>1<span class=o>)</span>  
+Traceback <span class=o>(</span>most recent call last<span class=o>)</span>:  
+File <span class=s2>&#34;vta/tests/python/integration/test_benchmark_topi_conv2d.py&#34;</span>, line 311, in &lt;module&gt;  
+test_conv2d<span class=o>(</span><span class=nv>device</span><span class=o>=</span><span class=s2>&#34;vta&#34;</span><span class=o>)</span>  
+File <span class=s2>&#34;vta/tests/python/integration/test_benchmark_topi_conv2d.py&#34;</span>, line 306, in test_conv2d  
+vta.testing.run<span class=o>(</span>_run<span class=o>)</span>  
+File <span class=s2>&#34;/home/ubuntu/workspace/tvm/vta/python/vta/testing/utils.py&#34;</span>, line 74, in run  
+run_func<span class=o>(</span>env, remote<span class=o>)</span>  
+File <span class=s2>&#34;vta/tests/python/integration/test_benchmark_topi_conv2d.py&#34;</span>, line 304, in _run  
+run_conv2d<span class=o>(</span>env, remote, wl, target<span class=o>)</span>  
+File <span class=s2>&#34;vta/tests/python/integration/test_benchmark_topi_conv2d.py&#34;</span>, line 234, in run_conv2d  
+<span class=nv>data_arr</span> <span class=o>=</span> tvm.nd.array<span class=o>(</span>data_np, ctx<span class=o>)</span>  
+File <span class=s2>&#34;/home/ubuntu/workspace/tvm/python/tvm/runtime/ndarray.py&#34;</span>, line 518, in array  
+<span class=k>return</span> empty<span class=o>(</span>arr.shape, arr.dtype, ctx<span class=o>)</span>.copyfrom<span class=o>(</span>arr<span class=o>)</span>  
+File <span class=s2>&#34;/home/ubuntu/workspace/tvm/python/tvm/runtime/ndarray.py&#34;</span>, line 292, in empty  
+<span class=nv>arr</span> <span class=o>=</span> _ffi_api.TVMArrayAllocWithScope<span class=o>(</span>shape_ptr, ndim, dtype, ctx, mem_scope<span class=o>)</span>  
+File <span class=s2>&#34;tvm/_ffi/_cython/./packed_func.pxi&#34;</span>, line 322, in tvm._ffi._cy3.core.PackedFuncBase._call_  
+File <span class=s2>&#34;tvm/_ffi/_cython/./packed_func.pxi&#34;</span>, line 267, in tvm._ffi._cy3.core.FuncCall  
+File <span class=s2>&#34;tvm/_ffi/_cython/./base.pxi&#34;</span>, line 160, in tvm._ffi._cy3.core.CALL  
+tvm.error.RPCError: Traceback <span class=o>(</span>most recent call last<span class=o>)</span>:  
+<span class=se>\[</span>bt<span class=se>\]</span> <span class=o>(</span>8<span class=o>)</span> /home/ubuntu/workspace/tvm/build/libtvm.so<span class=o>(</span>tvm::runtime::NDArray::Empty<span class=o>(</span>std::vector&lt;long, std::allocator&lt;long&gt; &gt;, DLDataType, DLContext, tvm::runtime::Optional&lt;tvm::runtime::String&gt;<span class=o>)</span>+0x124<span class=o>)</span> <span class=se>\[</span>0x7f1a9ab04024<span class=se>\]</span>  
+<span class=se>\[</span>bt<span class=se>\]</span> <span class=o>(</span>7<span class=o>)</span> /home/ubuntu/workspace/tvm/build/libtvm.so<span class=o>(</span>tvm::runtime::RPCDeviceAPI::AllocDataSpace<span class=o>(</span>DLContext, int, long const<span class=se>\*</span>, DLDataType, tvm::runtime::Optional&lt;tvm::runtime::String&gt;<span class=o>)</span>+0x89<span class=o>)</span> <span class=se>\[</span>0x7f1a9ab30c59<span class=se>\]</span>  
+<span class=se>\[</span>bt<span class=se>\]</span> <span class=o>(</span>6<span class=o>)</span> /home/ubuntu/workspace/tvm/build/libtvm.so<span class=o>(</span>tvm::runtime::RPCClientSession::AllocDataSpace<span class=o>(</span>DLContext, int, long const<span class=se>\*</span>, DLDataType, tvm::runtime::Optional&lt;tvm::runtime::String&gt;<span class=o>)</span>+0x155<span class=o>)</span> <span class=se>\[</span>0x7f1a9ab3ad45<span class=se>\]</span>  
+<span class=se>\[</span>bt<span class=se>\]</span> <span class=o>(</span>5<span class=o>)</span> /home/ubuntu/workspace/tvm/build/libtvm.so<span class=o>(</span>+0x164fc14<span class=o>)</span> <span class=se>\[</span>0x7f1a9ab34c14<span class=se>\]</span>  
+<span class=se>\[</span>bt<span class=se>\]</span> <span class=o>(</span>4<span class=o>)</span> /home/ubuntu/workspace/tvm/build/libtvm.so<span class=o>(</span>tvm::runtime::RPCEndpoint::HandleUntilReturnEvent<span class=o>(</span>bool, std::function&lt;void <span class=o>(</span>tvm::runtime::TVMArgs<span class=o>)</span>&gt;<span class=o>)</span>+0x37b<span class=o>)</span> <span class=se>\[</span>0x7f1a9ab31a5b<span class=se>\]</span>  
+<span class=se>\[</span>bt<span class=se>\]</span> <span class=o>(</span>3<span class=o>)</span> /home/ubuntu/workspace/tvm/build/libtvm.so<span class=o>(</span>tvm::runtime::RPCEndpoint::EventHandler::HandleNextEvent<span class=o>(</span>bool, bool, std::function&lt;void <span class=o>(</span>tvm::runtime::TVMArgs<span class=o>)</span>&gt;<span class=o>)</span>+0x1b8<span class=o>)</span> <span class=se>\[</span>0x7f1a9ab35238<span class=se>\]</span>  
+<span class=se>\[</span>bt<span class=se>\]</span> <span class=o>(</span>2<span class=o>)</span> /home/ubuntu/workspace/tvm/build/libtvm.so<span class=o>(</span>tvm::runtime::RPCEndpoint::EventHandler::HandleProcessPacket<span class=o>(</span>std::function&lt;void <span class=o>(</span>tvm::runtime::TVMArgs<span class=o>)</span>&gt;<span class=o>)</span>+0xe7<span class=o>)</span> <span class=se>\[</span>0x7f1a9ab362b7<span class=se>\]</span>  
+<span class=se>\[</span>bt<span class=se>\]</span> <span class=o>(</span>1<span class=o>)</span> /home/ubuntu/workspace/tvm/build/libtvm.so<span class=o>(</span>tvm::runtime::RPCEndpoint::EventHandler::HandleReturn<span class=o>(</span>tvm::runtime::RPCCode, std::function&lt;void <span class=o>(</span>tvm::runtime::TVMArgs<span class=o>)</span>&gt;<span class=o>)</span>+0xc9<span class=o>)</span> <span class=se>\[</span>0x7f1a9ab38029<span class=se>\]</span>  
+<span class=se>\[</span>bt<span class=se>\]</span> <span class=o>(</span>0<span class=o>)</span> /home/ubuntu/workspace/tvm/build/libtvm.so<span class=o>(</span>dmlc::LogMessageFatal::~LogMessageFatal<span class=o>()</span>+0x6c<span class=o>)</span> <span class=se>\[</span>0x7f1a99beb06c<span class=se>\]</span>
+</code></pre></td></tr></table></div></div><p>DE10-Nanoでは以下のような標準出力。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>INFO:root:Loading VTA library: /home/root/workspace/tvm/vta/python/vta/../../../build/libvta.so  
+INFO:RPCServer:load_module /tmp/tmpjpvsqhpe/conv2d.o  
+INFO:root:Loading VTA library: /home/root/workspace/tvm/vta/python/vta/../../../build/libvta.so  
+INFO:root:Loading VTA library: /home/root/workspace/tvm/vta/python/vta/../../../build/libvta.so  
+INFO:root:Loading VTA library: /home/root/workspace/tvm/vta/python/vta/../../../build/libvta.so  
+・・・省略・・・
+INFO:root:Loading VTA library: /home/root/workspace/tvm/vta/python/vta/../../../build/libvta.so  
+Process Process-1:2:  
+Traceback <span class=o>(</span>most recent call last<span class=o>)</span>:  
+File <span class=s2>&#34;/usr/local/lib/python3.8/multiprocessing/process.py&#34;</span>, line 315, in _bootstrap  
+self.run<span class=o>()</span>  
+File <span class=s2>&#34;/usr/local/lib/python3.8/multiprocessing/process.py&#34;</span>, line 108, in run  
+self._target<span class=o>(</span><span class=se>\*</span>self._args, <span class=se>\*\*</span>self._kwargs<span class=o>)</span>  
+File <span class=s2>&#34;/home/root/workspace/tvm/python/tvm/rpc/server.py&#34;</span>, line 118, in _serve_loop  
+_ffi_api.ServerLoop<span class=o>(</span>sockfd<span class=o>)</span>  
+File <span class=s2>&#34;/home/root/workspace/tvm/python/tvm/_ffi/_ctypes/packed_func.py&#34;</span>, line 237, in _call_  
+raise get_last_ffi_error<span class=o>()</span>  
+AttributeError: Traceback <span class=o>(</span>most recent call last<span class=o>)</span>:  
+4: TVMFuncCall  
+3: std::_Function_handler&lt;void <span class=o>(</span>tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue<span class=se>\*</span><span class=o>)</span>, tvm::runtime::<span class=o>{</span>lambda<span class=o>(</span>tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue<span class=se>\*</span><span class=o>)</span><span class=c1>#2}&gt;::_M_invoke(std::_Any_data const&amp;, tvm::runtime::TVMArgs&amp;&amp;, tvm::runtime::TVMRetValue\*&amp;&amp;)  </span>
+2: tvm::runtime::RPCServerLoop<span class=o>(</span>int<span class=o>)</span>  
+1: tvm::runtime::RPCEndpoint::ServerLoop<span class=o>()</span>  
+0: std::_Function_handler&lt;void <span class=o>(</span>tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue<span class=se>\*</span><span class=o>)</span>, TVMFuncCreateFromCFunc::<span class=o>{</span>lambda<span class=o>(</span>tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue<span class=se>\*</span><span class=o>)</span><span class=c1>#2}&gt;::_M_invoke(std::_Any_data const&amp;, tvm::runtime::TVMArgs&amp;&amp;, tvm::runtime::TVMRetValue\*&amp;&amp;)  </span>
+File <span class=s2>&#34;/home/root/workspace/tvm/python/tvm/_ffi/_ctypes/packed_func.py&#34;</span>, line 81, in cfun  
+<span class=nv>rv</span> <span class=o>=</span> local_pyfunc<span class=o>(</span><span class=se>\*</span>pyargs<span class=o>)</span>  
+File <span class=s2>&#34;/home/root/workspace/tvm/vta/python/vta/exec/rpc_server.py&#34;</span>, line 84, in server_shutdown  
+runtime_dll<span class=se>\[</span>0<span class=se>\]</span>.VTARuntimeShutdown<span class=o>()</span>  
+File <span class=s2>&#34;/usr/local/lib/python3.8/ctypes/_init_.py&#34;</span>, line 386, in _getattr_  
+<span class=nv>func</span> <span class=o>=</span> self._getitem_<span class=o>(</span>name<span class=o>)</span>  
+File <span class=s2>&#34;/usr/local/lib/python3.8/ctypes/_init_.py&#34;</span>, line 391, in _getitem_  
+<span class=nv>func</span> <span class=o>=</span> self._FuncPtr<span class=o>((</span>name_or_ordinal, self<span class=o>))</span>  
+AttributeError: /home/root/workspace/tvm/vta/python/vta/../../../build/libvta.so: undefined symbol: VTARuntimeShutdown
+</code></pre></td></tr></table></div></div></div><div class=post style=padding-top:0><div class=post-share><div class=share-link><a class="share-icon share-twitter" href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://mshr-h.com/posts/tvm-vta-for-de10-nano/ data-title="DE10-NanoにTVM VTAのRPC Serverを導入する" data-via=mshrh3><span class="svg-social-icon icon-twitter"></span></a></div><div class=share-link><a class="share-icon share-hackernews" href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://mshr-h.com/posts/tvm-vta-for-de10-nano/ data-title="DE10-NanoにTVM VTAのRPC Serverを導入する"><span class="svg-social-icon icon-hacker-news"></span></a></div></div></div></div><div id=toc-final></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.82.0">Hugo</a> | Theme - <a href="https://ublogger.netlify.app/?utm_source=https://mshr-h.com&utm_medium=footer&utm_campaign=config&utm_term=2.0.1" target=_blank title="uBlogger 2.0.1">uBlogger</a></div><div class=footer-line><i class="svg-icon icon-copyright"></i><span>2018 - 2021</span><span class=author>&nbsp;<a href=https://mshr-h.com target=_blank>Masa</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="svg-icon icon-arrow-up"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="svg-icon icon-comments-fixed"></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css><link rel=stylesheet href=/custom.css><script src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js></script><script src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js></script><script src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js></script><script src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js></script><script src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js></script><script>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:15},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1}}</script><script src=/js/theme.min.js></script><script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-165309045-1','auto'),ga('set','anonymizeIp',!0),ga('send','pageview')</script><script>(function(a,e,f,g,b,c,d){a[b]=a[b]||function(){(a[b].a=a[b].a||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym"),ym("70532758","init",{clickmap:!0,trackLinks:!0,accurateTrackBounce:!0,webvisor:null})</script><noscript><div><img src=https://mc.yandex.ru/watch/70532758 style=position:absolute;left:-9999px alt></div></noscript></body></html>
