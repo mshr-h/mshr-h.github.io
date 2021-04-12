@@ -6,7 +6,7 @@ description: ""
 date:        "2021-04-12"
 author:      "Masahiro Hiramori"
 image:       ""
-tags:        []
+tags:        ["TVM", "DE10-Nano", "FPGA", "Linux"]
 categories:  ["Tech"]
 draft:       false
 ---
