@@ -1,4 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>DE10-NanoにTVM VTAのRPC Serverを導入する |</title><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content><meta name=twitter:title content="DE10-NanoにTVM VTAのRPC Serverを導入する"><meta name=twitter:description content><meta name=twitter:creator content="@mshrh3"><meta name=Description content="programming and rock climbing"><meta name=Hatena::Bookmark content="nocomment"><meta property="og:title" content="DE10-NanoにTVM VTAのRPC Serverを導入する"><meta property="og:description" content="Terasic DE10-NanoにTVM VTAのRPC Serverを導入したので作業メモ。 DE10-Nanoセットアップに従う 必要なもの DE10-Nano microSD"><meta property="og:type" content="article"><meta property="og:url" content="https://mshr-h.com/posts/tvm-vta-for-de10-nano/"><meta property="og:image" content="https://mshr-h.com/img/avatar.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-04-12T00:00:00+00:00"><meta property="article:modified_time" content="2021-04-13T00:52:54+09:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://mshr-h.com/img/avatar.jpg"><meta name=twitter:title content="DE10-NanoにTVM VTAのRPC Serverを導入する"><meta name=twitter:description content="Terasic DE10-NanoにTVM VTAのRPC Serverを導入したので作業メモ。 DE10-Nanoセットアップに従う 必要なもの DE10-Nano microSD"><meta name=application-name content="Keep Coding, Keep Climbing"><meta name=apple-mobile-web-app-title content="Keep Coding, Keep Climbing"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://mshr-h.com/posts/tvm-vta-for-de10-nano/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>DE10-NanoにTVM VTAのRPC Serverを導入する |</title><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content><meta name=twitter:title content="DE10-NanoにTVM VTAのRPC Serverを導入する"><meta name=twitter:description content><meta name=twitter:creator content="@mshrh3"><meta name=Description content="programming and rock climbing"><meta name=Hatena::Bookmark content="nocomment"><meta property="og:title" content="DE10-NanoにTVM VTAのRPC Serverを導入する"><meta property="og:description" content="Terasic DE10-NanoにTVM VTAのRPC Serverを導入したので作業メモ。 DE10-Nanoセットアップに従う 必要なもの DE10-Nano microSD"><meta property="og:type" content="article"><meta property="og:url" content="https://mshr-h.com/posts/tvm-vta-for-de10-nano/"><meta property="og:image" content="https://mshr-h.com/img/avatar.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-04-12T00:00:00+00:00"><meta property="article:modified_time" content="2021-04-13T21:34:14+09:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://mshr-h.com/img/avatar.jpg"><meta name=twitter:title content="DE10-NanoにTVM VTAのRPC Serverを導入する"><meta name=twitter:description content="Terasic DE10-NanoにTVM VTAのRPC Serverを導入したので作業メモ。 DE10-Nanoセットアップに従う 必要なもの DE10-Nano microSD"><meta name=application-name content="Keep Coding, Keep Climbing"><meta name=apple-mobile-web-app-title content="Keep Coding, Keep Climbing"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://mshr-h.com/posts/tvm-vta-for-de10-nano/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -7,8 +7,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/mshr-h.com\/posts\/tvm-vta-for-de10-nano\/"
-        },"genre": "posts","keywords": "TVM, DE10-Nano, FPGA, Linux","wordCount":  1649 ,
-        "url": "https:\/\/mshr-h.com\/posts\/tvm-vta-for-de10-nano\/","datePublished": "2021-04-12T00:00:00+00:00","dateModified": "2021-04-13T00:52:54+09:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+        },"genre": "posts","keywords": "TVM, DE10-Nano, FPGA, Linux","wordCount":  1646 ,
+        "url": "https:\/\/mshr-h.com\/posts\/tvm-vta-for-de10-nano\/","datePublished": "2021-04-12T00:00:00+00:00","dateModified": "2021-04-13T21:34:14+09:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
         "publisher": {
             "@type": "Person",
             "name": "", "image": [
@@ -40,15 +40,13 @@
     }
 </script></head><body data-header-desktop=fixed data-header-mobile=auto><script>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing" class="header-logo logo-svg">Keep Coding, Keep Climbing</a></div><div class=menu><nav><ul class=menu-inner><li><a class=menu-item href=/posts/>Posts</a></li><li><a class=menu-item href=/tags/>Tags</a></li><li><a class=menu-item href=/categories/>Categories</a></li><li><a class=menu-item href=/cv>CV</a></li><li><a class=menu-item href=/about>About</a></li><li><a class=menu-item href=/search><i class="fab fa-github fa-fw"></i> Search</a></li></ul></nav><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><span class="svg-icon icon-moon"></span></a></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing" class=header-logo>Keep Coding, Keep Climbing</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><nav><ul><li><a class=menu-item href=/posts/ title>Posts</a></li><li><a class=menu-item href=/tags/ title>Tags</a></li><li><a class=menu-item href=/categories/ title>Categories</a></li><li><a class=menu-item href=/cv title>CV</a></li><li><a class=menu-item href=/about title>About</a></li><li><a class=menu-item href=/search title><i class="fab fa-github fa-fw"></i>Search</a></li></ul></nav><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><span class="svg-icon icon-moon"></span></a></div></div></header><main class=main><div class="container content-article page-toc theme-classic"><div class=toc id=toc-auto><div class=toc-title>Contents</div><div class=toc-content id=toc-content-auto></div></div><div class=header-post><div class=post-title><div class=post-all-meta><nav class=breadcrumbs><ol><li><a href=/>Home</a></li><li><a href=/categories/tech/>Tech</a></li><li>DE10-NanoにTVM VTAのRPC Serverを導入する</li></ol></nav><h1 class="single-title flipInX">DE10-NanoにTVM VTAのRPC Serverを導入する</h1><div class=post-meta><div class=post-meta-line><span class=post-category><a href=/categories/tech/><i class="svg-icon icon-folder"></i>Tech</a>
 </span><span class=post-meta-date><i class="svg-icon icon-clock"></i><time class=timeago datetime=2021-04-12>2021-04-12 Mon</time>
-</span><span class=post-meta-words><i class="svg-icon icon-pencil"></i>1649 words</span>
+</span><span class=post-meta-words><i class="svg-icon icon-pencil"></i>1646 words</span>
 <span class=post-meta-reading><i class="svg-icon icon-stopwatch"></i>4 minutes</span></div></div></div></div></div><article class="single toc-start"><div class="content-block content-block-first content-block-position"><div class=post><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#必要なもの>必要なもの</a></li><li><a href=#de10-nanoのセットアップ>DE10-Nanoのセットアップ</a><ul><li><a href=#パッケージ導入>パッケージ導入</a></li><li><a href=#python導入>Python導入</a></li><li><a href=#git導入>Git導入</a></li><li><a href=#tvmのrpc-serverをビルド>TVMのRPC Serverをビルド</a></li></ul></li><li><a href=#動作確認>動作確認</a></li></ul></nav></div></div><div style="margin:20px 0"><span class=post-update><b>Updated on 2021-04-13 Tue</b></span></div><p>Terasic <a href="https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1046" target=_blank rel="noopener noreffer">DE10-Nano</a>にTVM VTAのRPC Serverを導入したので作業メモ。</p><p><a href=https://tvm.apache.org/docs/vta/install.html#intel-de10-fpga-setup target=_blank rel="noopener noreffer">DE10-Nanoセットアップ</a>に従う</p><h2 id=必要なもの>必要なもの</h2><ul><li>DE10-Nano</li><li>microSDカード<ul><li>8GB以上推奨、microSDXC非対応な気がするので注意</li></ul></li><li>microUSBケーブル<ul><li>シリアル通信に必要</li></ul></li><li>LANケーブル<ul><li>ネットワークに繋ぐのに必要</li></ul></li></ul><h2 id=de10-nanoのセットアップ>DE10-Nanoのセットアップ</h2><p>まずは<a href="https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&CategoryNo=167&No=1046&PartNo=4" target=_blank rel="noopener noreffer">Terasicのページ</a>からAngstrom Linuxイメージをダウンロードする。</p><ul><li>de10-nano-image-Angstrom-v2016.12.socfpga-sdimg.2017.03.31.tgz</li></ul><p>ダウンロードしたファイルをmicroSDに書き込む。Win32DiskImagerを使用。</p><p>DE10-Nanoに電源ケーブルを接続、microSDをDE10-Nanoに挿入、microUSBケーブルでDE10-NanoとPCを接続する。</p><p>PC上でターミナルエミュレータでDE10-Nanoに接続する。TeraTermを使用。</p><p>ユーザ名：root、パスワードなしでログインする。</p><p>以降はDE10-Nano上で実行する。</p><h3 id=パッケージ導入>パッケージ導入</h3><p>システムパッケージをアップデートし、必要なパッケージを導入する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
-</span><span class=lnt>4
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>opkg update
-okpg upgrade
-opkg install cmake
-opkg install coreutils
+opkg upgrade
+opkg install cmake coreutils
 </code></pre></td></tr></table></div></div><h3 id=python導入>Python導入</h3><p>Angstrom Linuxに入っているPythonは古すぎるので、Pythonソースビルドする。</p><p>ソースコードをダウンロードし、ビルド、インストールする。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
@@ -74,7 +72,7 @@ ln -s /usr/local/bin/python3.8 /usr/bin/python
 rm /usr/bin/python3
 ln -s /usr/local/bin/python3.8 /usr/bin/python3
 </code></pre></td></tr></table></div></div><p><code>pip</code>を最新バージョンに更新する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>/usr/local/bin/python3.8 -m pip install --upgrade pip
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>/usr/local/bin/python3 -m pip install --upgrade pip
 </code></pre></td></tr></table></div></div><h3 id=git導入>Git導入</h3><p>Angstrom Linuxから導入できるGitはバージョンが古いので、これもソースビルドする。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
@@ -83,9 +81,7 @@ ln -s /usr/local/bin/python3.8 /usr/bin/python3
 </span><span class=lnt>6
 </span><span class=lnt>7
 </span><span class=lnt>8
-</span><span class=lnt>9
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>opkg install tcl tk gettext
-opkg install perl-module-pod-man
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh>opkg install tcl gettext perl-module-pod-man
 <span class=nb>cd</span> ~/workspace
 git clone https://github.com/git/git
 <span class=nb>cd</span> git
@@ -104,17 +100,19 @@ make install
 </span><span class=lnt> 9
 </span><span class=lnt>10
 </span><span class=lnt>11
+</span><span class=lnt>12
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh><span class=nb>cd</span> ~/workspace
 git clone --recursive https://github.com/apache/tvm tvm
 <span class=nb>cd</span> tvm
 mkdir build
 cp cmake/config.cmake build
-<span class=nb>echo</span> <span class=s1>&#39;set(USE_VTA_FPGA ON)&#39;</span> &gt;&gt; build/config.cmak
+<span class=nb>echo</span> <span class=s1>&#39;set(USE_VTA_FPGA ON)&#39;</span> &gt;&gt; build/config.cmake
 cp 3rdparty/vta-hw/config/de10nano_sample.json 3rdparty/vta-hw/config/vta_config.json
 <span class=nb>cd</span> build
 cmake ..
 make clean
 make runtime vta -j2
+pip3 install numpy
 </code></pre></td></tr></table></div></div><p>TVMのRPC Serverを起動する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sh data-lang=sh><span class=nb>cd</span> ~/workspace/tvm

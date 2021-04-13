@@ -35,9 +35,8 @@ PC上でターミナルエミュレータでDE10-Nanoに接続する。TeraTerm�
 
 ```sh
 opkg update
-okpg upgrade
-opkg install cmake
-opkg install coreutils
+opkg upgrade
+opkg install cmake coreutils
 ```
 
 ### Python導入
@@ -69,7 +68,7 @@ ln -s /usr/local/bin/python3.8 /usr/bin/python3
 `pip`を最新バージョンに更新する。
 
 ```sh
-/usr/local/bin/python3.8 -m pip install --upgrade pip
+/usr/local/bin/python3 -m pip install --upgrade pip
 ```
 
 ### Git導入
@@ -77,8 +76,7 @@ ln -s /usr/local/bin/python3.8 /usr/bin/python3
 Angstrom Linuxから導入できるGitはバージョンが古いので、これもソースビルドする。
 
 ```sh
-opkg install tcl tk gettext
-opkg install perl-module-pod-man
+opkg install tcl gettext perl-module-pod-man
 cd ~/workspace
 git clone https://github.com/git/git
 cd git
@@ -98,12 +96,13 @@ git clone --recursive https://github.com/apache/tvm tvm
 cd tvm
 mkdir build
 cp cmake/config.cmake build
-echo 'set(USE_VTA_FPGA ON)' >> build/config.cmak
+echo 'set(USE_VTA_FPGA ON)' >> build/config.cmake
 cp 3rdparty/vta-hw/config/de10nano_sample.json 3rdparty/vta-hw/config/vta_config.json
 cd build
 cmake ..
 make clean
 make runtime vta -j2
+pip3 install numpy
 ```
 
 TVMのRPC Serverを起動する。
