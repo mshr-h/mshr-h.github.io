@@ -29,4 +29,3 @@
     - そのまま残しておくかも
   - 有料プランは、月\$5の[Sync](https://obsidian.md/sync)を契約
   - One time paymentで\$50の[Obsidian Catalyst SUPPORTER](https://obsidian.md/pricing)を購入し、限定公開中のiOSアプリをTestflightから導入して使っている
-

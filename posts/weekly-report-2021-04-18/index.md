@@ -17,7 +17,7 @@ Look back on the week.
 - [Cerebras の新しい挑戦 ――データフローマシンとして流体力学問題を解く](https://gihyo.jp/dev/column/01/ml/2021/cerebras)
   - Cerebras の WSE(Wafer Scale Engine)を計算流体力学に応用した事例
   - 隣接するコア間の通信メッセージに 24 種類のタグを付けられるとあるが、なんで中途半端な数字なんだろうか
-    - $$2^n$$の方が都合がいいと思う
+    - $2^n$の方が都合がいいと思う
 
 ## Rock climbing
 
@@ -33,6 +33,6 @@ Look back on the week.
   - [[Ubuntu]] の Preview 版的な立ち位置
   - とりあえず入れていろいろ触ってみる
 - HPVM: Heterogeneous Parallel Virtual Machine
-  - https://dl.acm.org/doi/pdf/10.1145/3200691.3178493
-  - https://hpvm.readthedocs.io/en/latest/index.html
+  - <https://dl.acm.org/doi/pdf/10.1145/3200691.3178493>
+  - <https://hpvm.readthedocs.io/en/latest/index.html>
 
