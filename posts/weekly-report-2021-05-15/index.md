@@ -45,4 +45,7 @@ Look back on the week.
     - WSL2のPyTorchでCUDAを使う方法
 - [「自分の言葉で話す人」はなぜ面白いのか｜柴田史郎｜note](https://note.com/4bata/n/n1d8020e0e985)
 - [git gc の仕組みを原理から理解してサイズを 136MB → 7.2MB(95%減)まで削減した時の勉強メモ](https://zenn.dev/ulwlu/articles/cc2443d32e2444)
+- VSCodeのsyntax highlight関連
+    - [VSCodeのシンタックスハイライトの作り方 - KAYAC engineers' blog](https://techblog.kayac.com/vscode-extension-syntax-highlight)
+    - [visual studio code - How to convert a TextMate Grammar (XML flavor) to either YAML or JSON flavor - Stack Overflow](https://stackoverflow.com/questions/61283282/how-to-convert-a-textmate-grammar-xml-flavor-to-either-yaml-or-json-flavor)
 
