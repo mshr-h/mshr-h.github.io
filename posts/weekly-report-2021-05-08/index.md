@@ -36,4 +36,7 @@ Look back on the week.
 - [rr: lightweight recording & deterministic debugging](https://rr-project.org/)
     - 軽量なデバッガ
 - [Updates in containerd 1.5. containerd 1.5 was released on May 4… | by Akihiro Suda | Medium | nttlabs](https://medium.com/nttlabs/containerd15-fe0a9845a572)
+- Apple PodcastからGoogle Podcastに乗り換えた
+    - 在宅勤務が主になり、通勤中にiPhoneでPodcastを聞く機会が減少した
+    - 再生状態をSyncでき、Webブラウザからも聞けるGoogle Podcastに乗り換えた
 
