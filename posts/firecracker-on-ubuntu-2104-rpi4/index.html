@@ -1,0 +1,245 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた |</title><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content><meta name=twitter:title content="Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた"><meta name=twitter:description content><meta name=twitter:creator content="@mshrh3"><meta name=Description content="programming and rock climbing"><meta name=Hatena::Bookmark content="nocomment"><meta property="og:title" content="Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた"><meta property="og:description" content="手順メモ。 公式のInstructionはここ。 firecracker/getting-started.md at main · firecracker-microvm/firecracker KVMは有効済みなのでOK。 拡張ACL設定 /dev/kvmにアクセスするための設定。"><meta property="og:type" content="article"><meta property="og:url" content="https://mshr-h.com/posts/firecracker-on-ubuntu-2104-rpi4/"><meta property="og:image" content="https://mshr-h.com/img/avatar.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-05-29T00:00:00+00:00"><meta property="article:modified_time" content="2021-05-29T22:03:11+09:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://mshr-h.com/img/avatar.jpg"><meta name=twitter:title content="Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた"><meta name=twitter:description content="手順メモ。 公式のInstructionはここ。 firecracker/getting-started.md at main · firecracker-microvm/firecracker KVMは有効済みなのでOK。 拡張ACL設定 /dev/kvmにアクセスするための設定。"><meta name=application-name content="Keep Coding, Keep Climbing"><meta name=apple-mobile-web-app-title content="Keep Coding, Keep Climbing"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://mshr-h.com/posts/firecracker-on-ubuntu-2104-rpi4/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mshr-h.com\/posts\/firecracker-on-ubuntu-2104-rpi4\/"
+        },"genre": "posts","keywords": "Linux, Firecracker, Raspberry Pi","wordCount":  846 ,
+        "url": "https:\/\/mshr-h.com\/posts\/firecracker-on-ubuntu-2104-rpi4\/","datePublished": "2021-05-29T00:00:00+00:00","dateModified": "2021-05-29T22:03:11+09:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+        "publisher": {
+            "@type": "Person",
+            "name": "", "image": [
+            {
+            "@type": "ImageObject",
+            "url": "\/img\/avatar.jpg"
+            }
+            ]},"description": ""
+    }
+    </script><script type=application/ld+json>
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https:\/\/mshr-h.com"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tech",
+            "item": "https://mshr-h.com/categories/tech/"
+        },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた"
+            }]
+    }
+</script></head><body data-header-desktop=fixed data-header-mobile=auto><script>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing" class="header-logo logo-svg">Keep Coding, Keep Climbing</a></div><div class=menu><nav><ul class=menu-inner><li><a class=menu-item href=/posts/>Posts</a></li><li><a class=menu-item href=/tags/>Tags</a></li><li><a class=menu-item href=/categories/>Categories</a></li><li><a class=menu-item href=/cv>CV</a></li><li><a class=menu-item href=/about>About</a></li><li><a class=menu-item href=/search><i class="fab fa-github fa-fw"></i> Search</a></li></ul></nav><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><span class="svg-icon icon-moon"></span></a></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Keep Coding, Keep Climbing" class=header-logo>Keep Coding, Keep Climbing</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><nav><ul><li><a class=menu-item href=/posts/ title>Posts</a></li><li><a class=menu-item href=/tags/ title>Tags</a></li><li><a class=menu-item href=/categories/ title>Categories</a></li><li><a class=menu-item href=/cv title>CV</a></li><li><a class=menu-item href=/about title>About</a></li><li><a class=menu-item href=/search title><i class="fab fa-github fa-fw"></i>Search</a></li></ul></nav><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><span class="svg-icon icon-moon"></span></a></div></div></header><main class=main><div class="container content-article page-toc theme-classic"><div class=toc id=toc-auto><div class=toc-title>Contents</div><div class=toc-content id=toc-content-auto></div></div><div class=header-post><div class=post-title><div class=post-all-meta><nav class=breadcrumbs><ol><li><a href=/>Home</a></li><li><a href=/categories/tech/>Tech</a></li><li>Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた</li></ol></nav><h1 class="single-title flipInX">Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた</h1><div class=post-meta><div class=post-meta-line><span class=post-category><a href=/categories/tech/><i class="svg-icon icon-folder"></i>Tech</a>
+</span><span class=post-meta-date><i class="svg-icon icon-clock"></i><time class=timeago datetime=2021-05-29>2021-05-29 Sat</time>
+</span><span class=post-meta-words><i class="svg-icon icon-pencil"></i>846 words</span>
+<span class=post-meta-reading><i class="svg-icon icon-stopwatch"></i>2 minutes</span></div></div></div></div></div><article class="single toc-start"><div class="content-block content-block-first content-block-position"><div class=post><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#拡張acl設定>拡張ACL設定</a></li><li><a href=#firecrackerバイナリ取得>Firecrackerバイナリ取得</a></li><li><a href=#firecracker実行>Firecracker実行</a></li><li><a href=#microvm起動>MicroVM起動</a></li></ul></nav></div></div><p>手順メモ。
+公式のInstructionはここ。</p><ul><li><a href=https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md target=_blank rel="noopener noreffer">firecracker/getting-started.md at main · firecracker-microvm/firecracker</a></li></ul><p>KVMは有効済みなのでOK。</p><h2 id=拡張acl設定>拡張ACL設定</h2><p><code>/dev/kvm</code>にアクセスするための設定。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>sudo apt install acl
+sudo setfacl -m u:<span class=si>${</span><span class=nv>USER</span><span class=si>}</span>:rw /dev/kvm
+</code></pre></td></tr></table></div></div><h2 id=firecrackerバイナリ取得>Firecrackerバイナリ取得</h2><p>ダウンロード。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>release_url</span><span class=o>=</span><span class=s2>&#34;https://github.com/firecracker-microvm/firecracker/releases&#34;</span>
+<span class=nv>latest</span><span class=o>=</span><span class=k>$(</span>basename <span class=k>$(</span>curl -fsSLI -o /dev/null -w  %<span class=o>{</span>url_effective<span class=o>}</span> <span class=si>${</span><span class=nv>release_url</span><span class=si>}</span>/latest<span class=k>))</span>
+<span class=nv>arch</span><span class=o>=</span><span class=sb>`</span>uname -m<span class=sb>`</span>
+curl -L <span class=si>${</span><span class=nv>release_url</span><span class=si>}</span>/download/<span class=si>${</span><span class=nv>latest</span><span class=si>}</span>/firecracker-<span class=si>${</span><span class=nv>latest</span><span class=si>}</span>-<span class=si>${</span><span class=nv>arch</span><span class=si>}</span>.tgz <span class=se>\
+</span><span class=se></span><span class=p>|</span> tar -xz
+</code></pre></td></tr></table></div></div><p>バイナリを<code>/usr/local/bin/</code>に移動。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span> release-<span class=si>${</span><span class=nv>latest</span><span class=si>}</span>
+mv firecracker-<span class=si>${</span><span class=nv>latest</span><span class=si>}</span>-<span class=si>${</span><span class=nv>arch</span><span class=si>}</span> firecracker
+chmod +x firecracker
+sudo mv firecracker /usr/local/bin/
+</code></pre></td></tr></table></div></div><h2 id=firecracker実行>Firecracker実行</h2><p>Firecrackerプロセスを起動し、API呼び出しを受け付ける準備をする。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>sudo rm -f /tmp/firecracker.socket
+firecracker --api-sock /tmp/firecracker.socket
+</code></pre></td></tr></table></div></div><p>以降は別の端末を起動して実行。</p><h2 id=microvm起動>MicroVM起動</h2><p>以下のスクリプトを実行してKernelとRootFSを取得。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>arch=`uname -m`
+dest_kernel=&#34;hello-vmlinux.bin&#34;
+dest_rootfs=&#34;hello-rootfs.ext4&#34;
+image_bucket_url=&#34;https://s3.amazonaws.com/spec.ccfc.min/img&#34;
+
+if [ ${arch} = &#34;x86_64&#34; ]; then
+    kernel=&#34;${image_bucket_url}/quickstart_guide/x86_64/kernels/vmlinux.bin&#34;
+    rootfs=&#34;${image_bucket_url}/hello/fsfiles/hello-rootfs.ext4&#34;
+elif [ ${arch} = &#34;aarch64&#34; ]; then
+    kernel=&#34;${image_bucket_url}/quickstart_guide/aarch64/kernels/vmlinux.bin&#34;
+    rootfs=&#34;${image_bucket_url}/aarch64/ubuntu_with_ssh/fsfiles/xenial.rootfs.ext4&#34;
+else
+    echo &#34;Cannot run firecracker on $arch architecture!&#34;
+    exit 1
+fi
+
+echo &#34;Downloading $kernel...&#34;
+curl -fsSL -o $dest_kernel $kernel
+
+echo &#34;Downloading $rootfs...&#34;
+curl -fsSL -o $dest_rootfs $rootfs
+
+echo &#34;Saved kernel file to $dest_kernel and root block device to $dest_rootfs.&#34;
+</code></pre></td></tr></table></div></div><p>以下のスクリプトを実行して、MicroVMに対してKernelを設定する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>arch</span><span class=o>=</span><span class=sb>`</span>uname -m<span class=sb>`</span>
+<span class=nv>kernel_path</span><span class=o>=</span><span class=k>$(</span><span class=nb>pwd</span><span class=k>)</span><span class=s2>&#34;/hello-vmlinux.bin&#34;</span>
+
+<span class=k>if</span> <span class=o>[</span> <span class=si>${</span><span class=nv>arch</span><span class=si>}</span> <span class=o>=</span> <span class=s2>&#34;x86_64&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+    curl --unix-socket /tmp/firecracker.socket -i <span class=se>\
+</span><span class=se></span>      -X PUT <span class=s1>&#39;http://localhost/boot-source&#39;</span>   <span class=se>\
+</span><span class=se></span>      -H <span class=s1>&#39;Accept: application/json&#39;</span>           <span class=se>\
+</span><span class=se></span>      -H <span class=s1>&#39;Content-Type: application/json&#39;</span>     <span class=se>\
+</span><span class=se></span>      -d <span class=s2>&#34;{
+</span><span class=s2>            \&#34;kernel_image_path\&#34;: \&#34;</span><span class=si>${</span><span class=nv>kernel_path</span><span class=si>}</span><span class=s2>\&#34;,
+</span><span class=s2>            \&#34;boot_args\&#34;: \&#34;console=ttyS0 reboot=k panic=1 pci=off\&#34;
+</span><span class=s2>       }&#34;</span>
+<span class=k>elif</span> <span class=o>[</span> <span class=si>${</span><span class=nv>arch</span><span class=si>}</span> <span class=o>=</span> <span class=s2>&#34;aarch64&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+    curl --unix-socket /tmp/firecracker.socket -i <span class=se>\
+</span><span class=se></span>      -X PUT <span class=s1>&#39;http://localhost/boot-source&#39;</span>   <span class=se>\
+</span><span class=se></span>      -H <span class=s1>&#39;Accept: application/json&#39;</span>           <span class=se>\
+</span><span class=se></span>      -H <span class=s1>&#39;Content-Type: application/json&#39;</span>     <span class=se>\
+</span><span class=se></span>      -d <span class=s2>&#34;{
+</span><span class=s2>            \&#34;kernel_image_path\&#34;: \&#34;</span><span class=si>${</span><span class=nv>kernel_path</span><span class=si>}</span><span class=s2>\&#34;,
+</span><span class=s2>            \&#34;boot_args\&#34;: \&#34;keep_bootcon console=ttyS0 reboot=k panic=1 pci=off\&#34;
+</span><span class=s2>       }&#34;</span>
+<span class=k>else</span>
+    <span class=nb>echo</span> <span class=s2>&#34;Cannot run firecracker on </span><span class=nv>$arch</span><span class=s2> architecture!&#34;</span>
+    <span class=nb>exit</span> <span class=m>1</span>
+<span class=k>fi</span>
+</code></pre></td></tr></table></div></div><p>実行すると以下が出力される。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>HTTP/1.1 <span class=m>204</span>
+Server: Firecracker API
+Connection: keep-alive
+</code></pre></td></tr></table></div></div><p>同様に以下のスクリプトを実行して、MicroVMに対してRootFSを設定する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>rootfs_path</span><span class=o>=</span><span class=k>$(</span><span class=nb>pwd</span><span class=k>)</span><span class=s2>&#34;/hello-rootfs.ext4&#34;</span>
+curl --unix-socket /tmp/firecracker.socket -i <span class=se>\
+</span><span class=se></span>  -X PUT <span class=s1>&#39;http://localhost/drives/rootfs&#39;</span> <span class=se>\
+</span><span class=se></span>  -H <span class=s1>&#39;Accept: application/json&#39;</span>           <span class=se>\
+</span><span class=se></span>  -H <span class=s1>&#39;Content-Type: application/json&#39;</span>     <span class=se>\
+</span><span class=se></span>  -d <span class=s2>&#34;{
+</span><span class=s2>        \&#34;drive_id\&#34;: \&#34;rootfs\&#34;,
+</span><span class=s2>        \&#34;path_on_host\&#34;: \&#34;</span><span class=si>${</span><span class=nv>rootfs_path</span><span class=si>}</span><span class=s2>\&#34;,
+</span><span class=s2>        \&#34;is_root_device\&#34;: true,
+</span><span class=s2>        \&#34;is_read_only\&#34;: false
+</span><span class=s2>   }&#34;</span>
+</code></pre></td></tr></table></div></div><p>実行すると以下が出力される。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>HTTP/1.1 <span class=m>204</span>
+Server: Firecracker API
+Connection: keep-alive
+</code></pre></td></tr></table></div></div><p>MicroVMを起動する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>curl --unix-socket /tmp/firecracker.socket -i <span class=se>\
+</span><span class=se></span>    -X PUT <span class=s1>&#39;http://localhost/actions&#39;</span>       <span class=se>\
+</span><span class=se></span>    -H  <span class=s1>&#39;Accept: application/json&#39;</span>          <span class=se>\
+</span><span class=se></span>    -H  <span class=s1>&#39;Content-Type: application/json&#39;</span>    <span class=se>\
+</span><span class=se></span>    -d <span class=s1>&#39;{
+</span><span class=s1>        &#34;action_type&#34;: &#34;InstanceStart&#34;
+</span><span class=s1>     }&#39;</span>
+</code></pre></td></tr></table></div></div><p>コマンドを実行した端末で以下が出力され、</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>HTTP/1.1 <span class=m>204</span>
+Server: Firecracker API
+Connection: keep-alive
+</code></pre></td></tr></table></div></div><p>Firecrackerプロセスを起動した端末でMicroVMが起動する。
+ユーザ名、パスワードともに<code>root</code>でログインできる。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[  OK  ] Started Serial Getty on ttyS0.
+[  OK  ] Reached target Login Prompts.
+[  OK  ] Started OpenBSD Secure Shell server.
+[  OK  ] Reached target Multi-User System.
+[  OK  ] Reached target Graphical Interface.
+         Starting Update UTMP about System Runlevel Changes...
+[  OK  ] Started Update UTMP about System Runlevel Changes.
+
+Ubuntu 18.04.2 LTS fadfdd4af58a ttyS0
+
+fadfdd4af58a login:
+</code></pre></td></tr></table></div></div></div><div class=post style=padding-top:0><div class=post-share><div class=share-link><a class="share-icon share-twitter" href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://mshr-h.com/posts/firecracker-on-ubuntu-2104-rpi4/ data-title="Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた" data-via=mshrh3 data-hashtags="Linux,Firecracker,Raspberry Pi"><span class="svg-social-icon icon-twitter"></span></a></div><div class=share-link><a class="share-icon share-hackernews" href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://mshr-h.com/posts/firecracker-on-ubuntu-2104-rpi4/ data-title="Raspberry Pi 4上のUbuntu 21.04でFirecrackerを動かしてみた"><span class="svg-social-icon icon-hacker-news"></span></a></div></div><div class=post-tags><a href=/tags/linux/ class=tag>Linux</a><a href=/tags/firecracker/ class=tag>Firecracker</a><a href=/tags/raspberry-pi/ class=tag>Raspberry Pi</a></div></div></div><div id=toc-final></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> | Theme - <a href="https://ublogger.netlify.app/?utm_source=https://mshr-h.com&utm_medium=footer&utm_campaign=config&utm_term=2.0.1" target=_blank title="uBlogger 2.0.1">uBlogger</a></div><div class=footer-line><i class="svg-icon icon-copyright"></i><span>2018 - 2021</span><span class=author>&nbsp;<a href=https://mshr-h.com target=_blank>Masa</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="svg-icon icon-arrow-up"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="svg-icon icon-comments-fixed"></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css><link rel=stylesheet href=/custom.css><script src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js></script><script src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js></script><script src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js></script><script src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js></script><script src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js></script><script>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:15},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1}}</script><script src=/js/theme.min.js></script><script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-165309045-1','auto'),ga('set','anonymizeIp',!0),ga('send','pageview')</script><script>(function(a,e,f,g,b,c,d){a[b]=a[b]||function(){(a[b].a=a[b].a||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym"),ym("70532758","init",{clickmap:!0,trackLinks:!0,accurateTrackBounce:!0,webvisor:null})</script><noscript><div><img src=https://mc.yandex.ru/watch/70532758 style=position:absolute;left:-9999px alt></div></noscript></body></html>
