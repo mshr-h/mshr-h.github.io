@@ -187,3 +187,10 @@ Ubuntu 18.04.2 LTS fadfdd4af58a ttyS0
 
 fadfdd4af58a login:
 ```
+
+## 感想
+
+- firecrackerプロセスの起動時のメモリ使用量は924KB程度
+    - 軽い。。。
+- 起動時間は計ってないが高速
+    - curlコマンドを実行したらすぐにMicroVMが起動する
