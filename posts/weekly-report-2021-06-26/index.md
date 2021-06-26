@@ -44,7 +44,7 @@ Look back on the week.
 
 ## Other topics
 
-- AirPods Maxを買った
+- [AirPods Maxを買った]( {{< ref "/posts/2021-06-26-airpods-max.md" >}} )
 -  C++のコマンドライン引数パーサー
     -  ヘッダ1つをインクルードすればOK
     - [tanakh/cmdline: A Command Line Parser](https://github.com/tanakh/cmdline)
